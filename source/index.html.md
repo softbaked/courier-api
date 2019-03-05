@@ -54,8 +54,8 @@ This endpoint allow you to register webhook url to Page365 system.
 
 Parameter | Description
 --------- | -----------
-name | Name of the shipping company.
-url | Webhook url that Page365 will be send shipment information to.
+name | Name of the shipping company
+url | Webhook url that Page365 will be send shipment information to
 
 <aside class="notice">
 The register might take a few days, due to verification process before actual save into system is done by men.
@@ -126,3 +126,61 @@ Parameter | Description
 --------- | -----------
 ID | The ID of shipment to update
 status | Current status of shipment: `shipping`, `completed`, `cancelled`
+
+# Webhook
+
+## Shipment Created
+
+> Example of returns JSON structured, after shipment being created:
+
+```json
+{
+  "id": 1034234,
+  "sender": {
+    "name": "Miss Pimploen",
+    "phone": "086-123-4456",
+    "email": "pimploen@page365.net",
+    "address": {
+      "text": "555 Soi Sukhumvit 63 Khwaeng Khlong Tan Nuea, Khet Watthana, Krung Thep Maha Nakhon 10110",
+      "postcode": 10110
+    }
+  },
+  "receiver": {
+    "name": "Mr. Drumb",
+    "phone": "023456678",
+    "email": "d@page365.net",
+    "address": {
+      "text": "Softbaked Co., Ltd. (HQ) 90 Fifty Fifth Plaza 4/F Unit 4L2 Thong Lo 2, Sukhumvit 55 Rd., Khlong Tan Nuea, Watthana, Bangkok Thailand 10110",
+      "postcode": 10110
+    }
+  },
+  "is_pickup": 0
+}
+```
+
+This is the webhook detail that Page365 will send to webhook url, after any shipment being created.
+
+### Webhook Body
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+id | false | Shipment id
+sender | false | (User object) Sender detail
+receiver | false | (User object) Receiver detail
+is_pickup | false | Is this shipment require pickup or not? (Default: 0)
+
+#### User object
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+name | false | User name
+phone | true | User phone, free text
+email | true | User email, allow null
+address | false | (Address object) Address detail
+
+#### Address object
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+text | false | Address detail on text, free text
+postcode | false | Postcode
