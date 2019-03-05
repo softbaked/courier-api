@@ -248,7 +248,7 @@ status | false | Current status of shipment (Default: `new`)
 ## Get Specific Shipment
 
 ```ruby
-HTTParty.get('https://page365.net/shippings/12432')
+HTTParty.get('https://page365.net/shippings/1124232')
 ```
 
 ```shell
