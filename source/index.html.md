@@ -21,6 +21,66 @@ Welcome to Page365 Shipping API! You can use our API to register webhook endpoin
 
 We have language bindings in Shell, and Ruby. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
+# Webhook
+
+## Shipment Created
+
+> Example of returns JSON structured, after shipment being created:
+
+```json
+{
+  "id": 1034234,
+  "status": "new",
+  "sender": {
+    "name": "Miss Pimploen",
+    "phone": "086-123-4456",
+    "email": "pimploen@page365.net",
+    "address": {
+      "text": "555 Soi Sukhumvit 63 Khwaeng Khlong Tan Nuea, Khet Watthana, Krung Thep Maha Nakhon 10110",
+      "postcode": 10110
+    }
+  },
+  "receiver": {
+    "name": "Mr. Drumb",
+    "phone": "023456678",
+    "email": "d@page365.net",
+    "address": {
+      "text": "Softbaked Co., Ltd. (HQ) 90 Fifty Fifth Plaza 4/F Unit 4L2 Thong Lo 2, Sukhumvit 55 Rd., Khlong Tan Nuea, Watthana, Bangkok Thailand 10110",
+      "postcode": 10110
+    }
+  },
+  "is_pickup": 0
+}
+```
+
+This is the webhook detail that Page365 will send to webhook url, after any shipment being created.
+
+### Webhook Body
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+id | false | Shipment id
+status | false | Current status of shipment (Default: `new`)
+sender | false | (User object) Sender detail
+receiver | false | (User object) Receiver detail
+is_pickup | false | Is this shipment require pickup or not? (Default: 0)
+
+#### User object
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+name | false | User name
+phone | true | User phone, free text
+email | true | User email, allow null
+address | false | (Address object) Address detail
+
+#### Address object
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+text | false | Address detail on text, free text
+postcode | false | Postcode
+
 # POST API
 
 ## Register Webhook
@@ -127,15 +187,70 @@ Parameter | Description
 ID | The ID of shipment to update
 status | Current status of shipment: `shipping`, `completed`, `cancelled`
 
-# Webhook
+# GET API
 
-## Shipment Created
+## Get Shipment List
 
-> Example of returns JSON structured, after shipment being created:
+```ruby
+HTTParty.get('https://page365.net/shippings', body: {
+  name: 'SuperFastShipping'
+}.to_json)
+```
+
+```shell
+will be available soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "id": 13532,
+    "status": "shipping"
+  },
+  {
+    "id": 13565,
+    "status": "new"
+  }
+]
+```
+
+This endpoint allow you to get list of shipments that register for your company name.
+
+### HTTP Request
+
+`GET https://page365.net/shippings`
+
+### Request Parameters
+
+Parameter | Description
+--------- | -----------
+name | Name of the shipping company
+
+### Response Body
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+id | false | Shipment id
+status | false | Current status of shipment (Default: `new`)
+
+## Get Specific Shipment
+
+```ruby
+HTTParty.get('https://page365.net/shippings/12432')
+```
+
+```shell
+will be available soon
+```
+
+> The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 1034234,
+  "id": 1124232,
+  "status": "completed",
   "sender": {
     "name": "Miss Pimploen",
     "phone": "086-123-4456",
@@ -158,13 +273,14 @@ status | Current status of shipment: `shipping`, `completed`, `cancelled`
 }
 ```
 
-This is the webhook detail that Page365 will send to webhook url, after any shipment being created.
+This endpoint allow you to get details of specific shipment.
 
-### Webhook Body
+### Response Body
 
 Parameter | Allow Null | Description
 --------- | ---------- | -----------
 id | false | Shipment id
+status | false | Current status of shipment (Default: `new`)
 sender | false | (User object) Sender detail
 receiver | false | (User object) Receiver detail
 is_pickup | false | Is this shipment require pickup or not? (Default: 0)
