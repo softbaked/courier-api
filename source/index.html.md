@@ -6,7 +6,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - ruby
 
 toc_footers:
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a href='https://github.com/lord/slate'>Powered by Slate</a>
   - <a href='mailto:peace@page365.net'>Contact</a>
 
 includes:
@@ -17,44 +17,16 @@ search: true
 
 # Introduction
 
-Welcome to Page365 Shipping API! You can use our API to register webhook endpoint, confirm shipment weight, and update shipment step. Page365 will be responsible for create the shipment via webhook.
+Welcome to Page365 Shipping API! You can use our API to register webhook endpoint, confirm shipment weight, and update shipment status. Afterwards, Page365 will be responsible for create the shipment via webhook.
 
 We have language bindings in Shell, and Ruby. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-<!-- # Register Webhook Endpoint
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
- -->
 # POST API
 
 ## Register Webhook
 
 ```ruby
-HTTParty.post(REGISTER_PATH, body: {
+HTTParty.post('https://page365.net/shippings', body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/webhook'
 }.to_json)
@@ -76,120 +48,81 @@ This endpoint allow you to register webhook url to Page365 system.
 
 ### HTTP Request
 
-`POST https://page365.net/shipping`
+`POST https://page365.net/shippings`
 
 ### Request Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-name | - | Name of the shipping company.
-url | - | Webhook url that Page365 will be send shipment information to.
+Parameter | Description
+--------- | -----------
+name | Name of the shipping company.
+url | Webhook url that Page365 will be send shipment information to.
 
 <aside class="notice">
-This register will be needed to verify by our staff, before actual save into the system, so this process might take a few days
+The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
 
-## Get a Specific Kitten
+## Confirm Shipment Weight
 
 ```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+HTTParty.post('https://page365.net/shippings/1034234', body: {
+  weight: 0.05
+}.to_json)
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+will be available soon
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "success": 1
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint allow you to update shipment weight.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`POST https://page365.net/shippings/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+ID | The ID of shipment to update
+weight | Weight in kilogram unit (0.05 = 50 gram)
 
-## Delete a Specific Kitten
+## Update Shipment Statue
 
 ```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
+HTTParty.post('https://page365.net/shippings/1034234', body: {
+  status: 'shipping'
+}.to_json)
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+will be available soon
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "success": 1
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint allow you to update shipment status.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`POST https://page365.net/shippings/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to delete
-
+ID | The ID of shipment to update
+status | Current status of shipment: `shipping`, `completed`, `cancelled`
