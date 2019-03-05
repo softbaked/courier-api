@@ -4,12 +4,10 @@ title: Page365 Shipping API
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
   - ruby
-  - python
-  - javascript
 
 toc_footers:
-  - <a href='mailto:peace@page365.net'>Contact</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a href='mailto:peace@page365.net'>Contact</a>
 
 includes:
   - errors
@@ -19,13 +17,11 @@ search: true
 
 # Introduction
 
-Welcome to Page365 Shipping API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to Page365 Shipping API! You can use our API to register webhook endpoint, confirm shipment weight, and update shipment step. Page365 will be responsible for create the shipment via webhook.
 
 We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# Authentication
+# Register Webhook Endpoint
 
 > To authorize, use this code:
 
@@ -35,22 +31,10 @@ require 'kittn'
 api = Kittn::APIClient.authorize!('meowmeowmeow')
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
   -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
