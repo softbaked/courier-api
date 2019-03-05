@@ -19,9 +19,9 @@ search: true
 
 Welcome to Page365 Shipping API! You can use our API to register webhook endpoint, confirm shipment weight, and update shipment step. Page365 will be responsible for create the shipment via webhook.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings in Shell, and Ruby. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-# Register Webhook Endpoint
+<!-- # Register Webhook Endpoint
 
 > To authorize, use this code:
 
@@ -48,73 +48,45 @@ Kittn expects for the API key to be included in all API requests to the server i
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
+ -->
+# POST API
 
-# Kittens
-
-## Get All Kittens
+## Register Webhook
 
 ```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+HTTParty.post(REGISTER_PATH, body: {
+  name: 'SuperFastShipping',
+  url: 'https://www.super-fast-shipping.com/webhook'
+}.to_json)
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+will be available soon
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+{
+  "success": 1
+}
 ```
 
-This endpoint retrieves all kittens.
+This endpoint allow you to register webhook url to Page365 system.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`POST https://page365.net/shipping`
 
-### Query Parameters
+### Request Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+name | - | Name of the shipping company.
+url | - | Webhook url that Page365 will be send shipment information to.
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+This register will be needed to verify by our staff, before actual save into the system, so this process might take a few days
 </aside>
 
 ## Get a Specific Kitten
