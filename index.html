@@ -386,7 +386,9 @@
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
   <span class="ss">url: </span><span class="s1">'https://www.super-fast-shipping.com/webhook'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>will be available soon
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     --data <span class="s1">'{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}'</span> <span class="se">\</span>
+     https://page365.net/shippings
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -421,7 +423,9 @@ The register might take a few days, due to verification process before actual sa
 <h2 id='confirm-shipment-weight'>Confirm Shipment Weight</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">weight: </span><span class="mi">0</span><span class="o">.</span><span class="mo">05</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>will be available soon
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     --data <span class="s1">'{"weight":0.05}'</span> <span class="se">\</span>
+     https://page365.net/shippings/1034234
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -460,7 +464,9 @@ The register might take a few days, due to verification process before actual sa
 <h2 id='update-shipment-status'>Update Shipment Status</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">status: </span><span class="s1">'shipping'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>will be available soon
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     --data <span class="s1">'{"status":"shipping"}'</span> <span class="se">\</span>
+     https://page365.net/shippings/1034234
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -499,7 +505,10 @@ The register might take a few days, due to verification process before actual sa
 <h1 id='get-api'>GET API</h1><h2 id='get-shipment-list'>Get Shipment List</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://page365.net/shippings'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>will be available soon
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     --request GET <span class="se">\</span>
+     --data <span class="s1">'{"name":"SuperFastShipping"}'</span> <span class="se">\</span>
+     https://page365.net/shippings
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -550,7 +559,7 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </tbody></table>
 <h2 id='get-specific-shipment'>Get Specific Shipment</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1124232'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>will be available soon
+</code></pre><pre class="highlight shell tab-shell"><code>curl https://page365.net/shippings/1124232
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
