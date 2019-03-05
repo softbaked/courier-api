@@ -152,9 +152,14 @@ This endpoint allow you to update shipment weight.
 Parameter | Description
 --------- | -----------
 ID | The ID of shipment to update
+
+### Request Parameters
+
+Parameter | Description
+--------- | -----------
 weight | Weight in kilogram unit (0.05 = 50 gram)
 
-## Update Shipment Statue
+## Update Shipment Status
 
 ```ruby
 HTTParty.post('https://page365.net/shippings/1034234', body: {
@@ -185,6 +190,11 @@ This endpoint allow you to update shipment status.
 Parameter | Description
 --------- | -----------
 ID | The ID of shipment to update
+
+### Request Parameters
+
+Parameter | Description
+--------- | -----------
 status | Current status of shipment: `shipping`, `completed`, `cancelled`
 
 # GET API
@@ -274,6 +284,16 @@ will be available soon
 ```
 
 This endpoint allow you to get details of specific shipment.
+
+### HTTP Request
+
+`GET https://page365.net/shippings/<ID>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of shipment to update
 
 ### Response Body
 
