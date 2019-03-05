@@ -93,7 +93,9 @@ HTTParty.post('https://page365.net/shippings', body: {
 ```
 
 ```shell
-will be available soon
+curl --header "Content-Type: application/json" \
+     --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}' \
+     https://page365.net/shippings
 ```
 
 > The above command returns JSON structured like this:
@@ -130,7 +132,9 @@ HTTParty.post('https://page365.net/shippings/1034234', body: {
 ```
 
 ```shell
-will be available soon
+curl --header "Content-Type: application/json" \
+     --data '{"weight":0.05}' \
+     https://page365.net/shippings/1034234
 ```
 
 > The above command returns JSON structured like this:
@@ -168,7 +172,9 @@ HTTParty.post('https://page365.net/shippings/1034234', body: {
 ```
 
 ```shell
-will be available soon
+curl --header "Content-Type: application/json" \
+     --data '{"status":"shipping"}' \
+     https://page365.net/shippings/1034234
 ```
 
 > The above command returns JSON structured like this:
@@ -208,7 +214,10 @@ HTTParty.get('https://page365.net/shippings', body: {
 ```
 
 ```shell
-will be available soon
+curl --header "Content-Type: application/json" \
+     --request GET \
+     --data '{"name":"SuperFastShipping"}' \
+     https://page365.net/shippings
 ```
 
 > The above command returns JSON structured like this:
@@ -252,7 +261,7 @@ HTTParty.get('https://page365.net/shippings/1124232')
 ```
 
 ```shell
-will be available soon
+curl https://page365.net/shippings/1124232
 ```
 
 > The above command returns JSON structured like this:
