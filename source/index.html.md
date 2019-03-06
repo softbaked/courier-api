@@ -123,6 +123,46 @@ url | Webhook url that Page365 will be send shipment information to
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
 
+## Update Shipment Tracking Code
+
+```ruby
+HTTParty.post('https://page365.net/shippings/1034234', body: {
+  tracking_code: "ABQZ1234KL"
+}.to_json)
+```
+
+```shell
+curl --header "Content-Type: application/json" \
+     --data '{"tracking_code":"ABQZ1234KL"}' \
+     https://page365.net/shippings/1034234
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": 1
+}
+```
+
+This endpoint allow you to update tracking code to specific shipment.
+
+### HTTP Request
+
+`POST https://page365.net/shippings/<ID>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of shipment to update
+
+### Request Parameters
+
+Parameter | Description
+--------- | -----------
+tracking_code | Tracking code that will be printed on the parcel
+
 ## Confirm Shipment Weight
 
 ```ruby
@@ -201,7 +241,7 @@ ID | The ID of shipment to update
 
 Parameter | Description
 --------- | -----------
-status | Current status of shipment: `shipping`, `completed`, `cancelled`
+status | Current status of shipment: <ul><li>`shipping`: in process of shipping</li><li>`completed`: the delivery completed</li><li>`cancelled`: any error that occur and make the shipping incomplete</li></ul>
 
 # GET API
 
