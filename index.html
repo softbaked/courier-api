@@ -237,6 +237,9 @@
                     <a href="#register-webhook" class="toc-h2 toc-link" data-title="Register Webhook">Register Webhook</a>
                   </li>
                   <li>
+                    <a href="#update-shipment-tracking-code" class="toc-h2 toc-link" data-title="Update Shipment Tracking Code">Update Shipment Tracking Code</a>
+                  </li>
+                  <li>
                     <a href="#confirm-shipment-weight" class="toc-h2 toc-link" data-title="Confirm Shipment Weight">Confirm Shipment Weight</a>
                   </li>
                   <li>
@@ -420,11 +423,11 @@
 <aside class="notice">
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
-<h2 id='confirm-shipment-weight'>Confirm Shipment Weight</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
-  <span class="ss">weight: </span><span class="mi">0</span><span class="o">.</span><span class="mo">05</span>
+<h2 id='update-shipment-tracking-code'>Update Shipment Tracking Code</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+  <span class="ss">tracking_code: </span><span class="s2">"ABQZ1234KL"</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-     --data <span class="s1">'{"weight":0.05}'</span> <span class="se">\</span>
+     --data <span class="s1">'{"tracking_code":"ABQZ1234KL"}'</span> <span class="se">\</span>
      https://page365.net/shippings/1034234
 </code></pre>
 <blockquote>
@@ -434,7 +437,7 @@ The register might take a few days, due to verification process before actual sa
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint allow you to update shipment weight.</p>
+<p>This endpoint allow you to update tracking code to specific shipment.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST https://page365.net/shippings/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -450,6 +453,47 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </tbody></table>
 <h3 id='request-parameters-2'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tracking_code</td>
+<td>Tracking code that will be printed on the parcel</td>
+</tr>
+</tbody></table>
+<h2 id='confirm-shipment-weight'>Confirm Shipment Weight</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+  <span class="ss">weight: </span><span class="mi">0</span><span class="o">.</span><span class="mo">05</span>
+<span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     --data <span class="s1">'{"weight":0.05}'</span> <span class="se">\</span>
+     https://page365.net/shippings/1034234
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allow you to update shipment weight.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://page365.net/shippings/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of shipment to update</td>
+</tr>
+</tbody></table>
+<h3 id='request-parameters-3'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -476,9 +520,9 @@ The register might take a few days, due to verification process before actual sa
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint allow you to update shipment status.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>POST https://page365.net/shippings/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -490,7 +534,7 @@ The register might take a few days, due to verification process before actual sa
 <td>The ID of shipment to update</td>
 </tr>
 </tbody></table>
-<h3 id='request-parameters-3'>Request Parameters</h3>
+<h3 id='request-parameters-4'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -499,7 +543,7 @@ The register might take a few days, due to verification process before actual sa
 </thead><tbody>
 <tr>
 <td>status</td>
-<td>Current status of shipment: <code>shipping</code>, <code>completed</code>, <code>cancelled</code></td>
+<td>Current status of shipment: <ul><li><code>shipping</code>: in process of shipping</li><li><code>completed</code>: the delivery completed</li><li><code>cancelled</code>: any error that occur and make the shipping incomplete</li></ul></td>
 </tr>
 </tbody></table>
 <h1 id='get-api'>GET API</h1><h2 id='get-shipment-list'>Get Shipment List</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://page365.net/shippings'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
@@ -525,9 +569,9 @@ The register might take a few days, due to verification process before actual sa
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint allow you to get list of shipments that register for your company name.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>GET https://page365.net/shippings</code></p>
-<h3 id='request-parameters-4'>Request Parameters</h3>
+<h3 id='request-parameters-5'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -589,9 +633,9 @@ The register might take a few days, due to verification process before actual sa
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint allow you to get details of specific shipment.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET https://page365.net/shippings/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-3'>URL Parameters</h3>
+<h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
