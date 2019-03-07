@@ -278,8 +278,18 @@
 
 <p>We have language bindings in Shell, and Ruby. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 <h1 id='how-api-works'>How API works</h1>
-<p>Here is the API call, webhook flow that is designed for Page365 Shipping API:
-1. <a href="#register-webhook">Register Webhook</a> - first, register your company name along with webhook url that Page365 Shipping API will push data to.</p>
+<p>Here is the API call, webhook flow that is designed for Page365 Shipping API:</p>
+
+<ol>
+<li><a href="#register-webhook">Register webhook</a> - first, register your company name along with webhook url that Page365 Shipping API will push data to.</li>
+<li><a href="#shipment-created">Wait for webhook</a> - then wait for webhook that will be send, after shipment being create. You will get shipment information from the webhook, such as, id, sender address, and receiver address.</li>
+<li><a href="#update-shipment-tracking-code">Update tracking code</a> - then you will send tracking code that will be on parcel label back to us.</li>
+<li>Customer bring parcel to your service store</li>
+<li><a href="#confirm-shipment-weight">Update shipment weight</a> - call api update weight, after parcel being weighted.</li>
+<li><a href="#update-shipment-status">Keep update shipment status</a> - customer will be able to track shipment status via the update on this api.</li>
+</ol>
+
+<p>In case of any error on webhook, you can <a href="#get-shipment-list">query list of shipments</a>, or <a href="#get-specific-shipment">specific shipment</a> by GET API anytime.</p>
 <h1 id='webhook'>Webhook</h1><h2 id='shipment-created'>Shipment Created</h2>
 <blockquote>
 <p>Example of returns JSON structured, after shipment being created:</p>
