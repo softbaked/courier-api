@@ -24,7 +24,15 @@ We have language bindings in Shell, and Ruby. You can view code examples in the 
 # How API works
 
 Here is the API call, webhook flow that is designed for Page365 Shipping API:
-1. [Register Webhook](#register-webhook) - first, register your company name along with webhook url that Page365 Shipping API will push data to.
+
+1. [Register webhook](#register-webhook) - first, register your company name along with webhook url that Page365 Shipping API will push data to.
+2. [Wait for webhook](#shipment-created) - then wait for webhook that will be send, after shipment being create. You will get shipment information from the webhook, such as, id, sender address, and receiver address.
+3. [Update tracking code](#update-shipment-tracking-code) - then you will send tracking code that will be on parcel label back to us.
+4. Customer bring parcel to your service store
+5. [Update shipment weight](#confirm-shipment-weight) - call api update weight, after parcel being weighted.
+6. [Keep update shipment status](#update-shipment-status) - customer will be able to track shipment status via the update on this api.
+
+In case of any error on webhook, you can [query list of shipments](#get-shipment-list), or [specific shipment](#get-specific-shipment) by GET API anytime.
 
 # Webhook
 
