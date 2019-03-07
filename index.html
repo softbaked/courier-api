@@ -223,6 +223,9 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
+            <a href="#how-api-works" class="toc-h1 toc-link" data-title="How API works">How API works</a>
+          </li>
+          <li>
             <a href="#webhook" class="toc-h1 toc-link" data-title="Webhook">Webhook</a>
               <ul class="toc-list-h2">
                   <li>
@@ -274,6 +277,9 @@
 <p>Welcome to Page365 Shipping API! You can use our API to register webhook endpoint, confirm shipment weight, and update shipment status. Afterwards, Page365 will be responsible for create the shipment via webhook.</p>
 
 <p>We have language bindings in Shell, and Ruby. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<h1 id='how-api-works'>How API works</h1>
+<p>Here is the API call, webhook flow that is designed for Page365 Shipping API:
+1. <a href="#register-webhook">Register Webhook</a> - first, register your company name along with webhook url that Page365 Shipping API will push data to.</p>
 <h1 id='webhook'>Webhook</h1><h2 id='shipment-created'>Shipment Created</h2>
 <blockquote>
 <p>Example of returns JSON structured, after shipment being created:</p>
