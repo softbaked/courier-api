@@ -21,6 +21,11 @@ Welcome to Page365 Shipping API! You can use our API to register webhook endpoin
 
 We have language bindings in Shell, and Ruby. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
+# How API works
+
+Here is the API call, webhook flow that is designed for Page365 Shipping API:
+1. [Register Webhook](#register-webhook) - first, register your company name along with webhook url that Page365 Shipping API will push data to.
+
 # Webhook
 
 ## Shipment Created
