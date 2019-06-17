@@ -82,6 +82,7 @@ is_pickup | false | Is this shipment require pickup or not? (Default: 0)
 
 Parameter | Allow Null | Description
 --------- | ---------- | -----------
+id | false* | User id (*Required on sender detail)
 name | false | User name
 phone | true | User phone, free text
 email | true | User email, allow null
