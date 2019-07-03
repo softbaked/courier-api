@@ -243,10 +243,7 @@
                     <a href="#update-shipment-tracking-code" class="toc-h2 toc-link" data-title="Update Shipment Tracking Code">Update Shipment Tracking Code</a>
                   </li>
                   <li>
-                    <a href="#confirm-shipment-weight" class="toc-h2 toc-link" data-title="Confirm Shipment Weight">Confirm Shipment Weight</a>
-                  </li>
-                  <li>
-                    <a href="#update-shipment-status" class="toc-h2 toc-link" data-title="Update Shipment Status">Update Shipment Status</a>
+                    <a href="#update-shipment-details" class="toc-h2 toc-link" data-title="Update Shipment Details">Update Shipment Details</a>
                   </li>
               </ul>
           </li>
@@ -258,6 +255,9 @@
                   </li>
                   <li>
                     <a href="#get-specific-shipment" class="toc-h2 toc-link" data-title="Get Specific Shipment">Get Specific Shipment</a>
+                  </li>
+                  <li>
+                    <a href="#get-user" class="toc-h2 toc-link" data-title="Get User">Get User</a>
                   </li>
               </ul>
           </li>
@@ -298,6 +298,7 @@
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1034234</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"sender"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1123</span><span class="p">,</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Miss Pimploen"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"086-123-4456"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pimploen@page365.net"</span><span class="p">,</span><span class="w">
@@ -406,13 +407,13 @@
 <td>Postcode</td>
 </tr>
 </tbody></table>
-<h1 id='post-api'>POST API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+<h1 id='post-api'>POST API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/shippings'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
   <span class="ss">url: </span><span class="s1">'https://www.super-fast-shipping.com/webhook'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      --data <span class="s1">'{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}'</span> <span class="se">\</span>
-     https://page365.net/shippings
+     https://<span class="o">{{</span>ENDPOINT<span class="o">}}</span>/shippings
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -423,7 +424,7 @@
 </span></code></pre>
 <p>This endpoint allow you to register webhook url to Page365 system.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://page365.net/shippings</code></p>
+<p><code>POST https://{{ENDPOINT}}/shippings</code></p>
 <h3 id='request-parameters'>Request Parameters</h3>
 <table><thead>
 <tr>
@@ -444,12 +445,12 @@
 <aside class="notice">
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
-<h2 id='update-shipment-tracking-code'>Update Shipment Tracking Code</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+<h2 id='update-shipment-tracking-code'>Update Shipment Tracking Code</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">tracking_code: </span><span class="s2">"ABQZ1234KL"</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      --data <span class="s1">'{"tracking_code":"ABQZ1234KL"}'</span> <span class="se">\</span>
-     https://page365.net/shippings/1034234
+     https://<span class="o">{{</span>ENDPOINT<span class="o">}}</span>/shippings/1034234
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -460,7 +461,7 @@ The register might take a few days, due to verification process before actual sa
 </span></code></pre>
 <p>This endpoint allow you to update tracking code to specific shipment.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://page365.net/shippings/&lt;ID&gt;</code></p>
+<p><code>POST https://{{ENDPOINT}}/shippings/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -485,12 +486,15 @@ The register might take a few days, due to verification process before actual sa
 <td>Tracking code that will be printed on the parcel</td>
 </tr>
 </tbody></table>
-<h2 id='confirm-shipment-weight'>Confirm Shipment Weight</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
-  <span class="ss">weight: </span><span class="mi">0</span><span class="o">.</span><span class="mo">05</span>
+<h2 id='update-shipment-details'>Update Shipment Details</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+  <span class="ss">status: </span><span class="s1">'shipping'</span><span class="p">,</span>
+  <span class="ss">weight: </span><span class="mi">0</span><span class="o">.</span><span class="mo">05</span><span class="p">,</span>
+  <span class="ss">reference_id: </span><span class="s1">'003-11245'</span><span class="p">,</span>
+  <span class="ss">note: </span><span class="s1">'dimention size: 3 * 3 * 3'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-     --data <span class="s1">'{"weight":0.05}'</span> <span class="se">\</span>
-     https://page365.net/shippings/1034234
+     --data <span class="s1">'{"status":"shipping", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}'</span> <span class="se">\</span>
+     https://<span class="o">{{</span>ENDPOINT<span class="o">}}</span>/shippings/1034234
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -499,9 +503,9 @@ The register might take a few days, due to verification process before actual sa
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint allow you to update shipment weight.</p>
+<p>This endpoint allow you to update shipment status, weight, ref id, or note.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST https://page365.net/shippings/&lt;ID&gt;</code></p>
+<p><code>POST https://{{ENDPOINT}}/shippings/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -518,62 +522,38 @@ The register might take a few days, due to verification process before actual sa
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>weight</td>
-<td>Weight in kilogram unit (0.05 = 50 gram)</td>
-</tr>
-</tbody></table>
-<h2 id='update-shipment-status'>Update Shipment Status</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
-  <span class="ss">status: </span><span class="s1">'shipping'</span>
-<span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-     --data <span class="s1">'{"status":"shipping"}'</span> <span class="se">\</span>
-     https://page365.net/shippings/1034234
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint allow you to update shipment status.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>POST https://page365.net/shippings/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-3'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of shipment to update</td>
-</tr>
-</tbody></table>
-<h3 id='request-parameters-4'>Request Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>status</td>
+<td>No</td>
 <td>Current status of shipment: <ul><li><code>shipping</code>: in process of shipping</li><li><code>completed</code>: the delivery completed</li><li><code>cancelled</code>: any error that occur and make the shipping incomplete</li></ul></td>
 </tr>
+<tr>
+<td>weight</td>
+<td>No</td>
+<td>Weight in kilogram unit (0.05 = 50 gram)</td>
+</tr>
+<tr>
+<td>reference_id</td>
+<td>No</td>
+<td>Any reference id that will be needed on other end</td>
+</tr>
+<tr>
+<td>note</td>
+<td>No</td>
+<td>Any free text for given shipment</td>
+</tr>
 </tbody></table>
-<h1 id='get-api'>GET API</h1><h2 id='get-shipment-list'>Get Shipment List</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://page365.net/shippings'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+<h1 id='get-api'>GET API</h1><h2 id='get-shipment-list'>Get Shipment List</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/shippings'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      --request GET <span class="se">\</span>
      --data <span class="s1">'{"name":"SuperFastShipping"}'</span> <span class="se">\</span>
-     https://page365.net/shippings
+     https://<span class="o">{{</span>ENDPOINT<span class="o">}}</span>/shippings
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -590,9 +570,9 @@ The register might take a few days, due to verification process before actual sa
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint allow you to get list of shipments that register for your company name.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
-<p><code>GET https://page365.net/shippings</code></p>
-<h3 id='request-parameters-5'>Request Parameters</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://{{ENDPOINT}}/shippings</code></p>
+<h3 id='request-parameters-4'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -623,8 +603,8 @@ The register might take a few days, due to verification process before actual sa
 <td>Current status of shipment (Default: <code>new</code>)</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-shipment'>Get Specific Shipment</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://page365.net/shippings/1124232'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl https://page365.net/shippings/1124232
+<h2 id='get-specific-shipment'>Get Specific Shipment</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/shippings/1124232'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl https://<span class="o">{{</span>ENDPOINT<span class="o">}}</span>/shippings/1124232
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -654,9 +634,9 @@ The register might take a few days, due to verification process before actual sa
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint allow you to get details of specific shipment.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
-<p><code>GET https://page365.net/shippings/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-4'>URL Parameters</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET https://{{ENDPOINT}}/shippings/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -711,6 +691,11 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </thead><tbody>
 <tr>
+<td>id</td>
+<td>true</td>
+<td>User id (Mandatory on sender detail)</td>
+</tr>
+<tr>
 <td>name</td>
 <td>false</td>
 <td>User name</td>
@@ -732,6 +717,96 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </tbody></table>
 <h4 id='address-object-2'>Address object</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Allow Null</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td>false</td>
+<td>Address detail on text, free text</td>
+</tr>
+<tr>
+<td>postcode</td>
+<td>false</td>
+<td>Postcode</td>
+</tr>
+</tbody></table>
+<h2 id='get-user'>Get User</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/users'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+  <span class="ss">id: </span><span class="mi">1123</span>
+<span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     --request GET <span class="se">\</span>
+     --data <span class="s1">'{"id":1123}'</span> <span class="se">\</span>
+     https://<span class="o">{{</span>ENDPOINT<span class="o">}}</span>/shippings
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1123</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Miss Pimploen"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"086-123-4456"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pimploen@page365.net"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"555 Soi Sukhumvit 63 Khwaeng Khlong Tan Nuea, Khet Watthana, Krung Thep Maha Nakhon 10110"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="mi">10110</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allow you to get detail of specific user, for example, sender detail. Benefit on contact and billing to sender.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET https://{{ENDPOINT}}/users</code></p>
+<h3 id='request-parameters-5'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>User id</td>
+</tr>
+</tbody></table>
+<h3 id='response-body-3'>Response Body</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Allow Null</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>User id</td>
+</tr>
+<tr>
+<td>name</td>
+<td>false</td>
+<td>User name</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>true</td>
+<td>User phone, free text</td>
+</tr>
+<tr>
+<td>email</td>
+<td>true</td>
+<td>User email, allow null</td>
+</tr>
+<tr>
+<td>address</td>
+<td>false</td>
+<td>(Address object) Address detail</td>
+</tr>
+</tbody></table>
+<h4 id='address-object-3'>Address object</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
