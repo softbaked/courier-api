@@ -138,51 +138,12 @@ url | Webhook url that Page365 will be send shipment information to
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
 
-## Update Shipment Tracking Code
-
-```ruby
-HTTParty.post('https://{{ENDPOINT}}/shippings/1034234', body: {
-  tracking_code: "ABQZ1234KL"
-}.to_json)
-```
-
-```shell
-curl --header "Content-Type: application/json" \
-     --data '{"tracking_code":"ABQZ1234KL"}' \
-     https://{{ENDPOINT}}/shippings/1034234
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "success": 1
-}
-```
-
-This endpoint allow you to update tracking code to specific shipment.
-
-### HTTP Request
-
-`POST https://{{ENDPOINT}}/shippings/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of shipment to update
-
-### Request Parameters
-
-Parameter | Description
---------- | -----------
-tracking_code | Tracking code that will be printed on the parcel
-
 ## Update Shipment Details
 
 ```ruby
 HTTParty.post('https://{{ENDPOINT}}/shippings/1034234', body: {
   status: 'shipping',
+  tracking_code: "ABQZ1234KL",
   weight: 0.05,
   reference_id: '003-11245',
   note: 'dimention size: 3 * 3 * 3'
@@ -191,7 +152,7 @@ HTTParty.post('https://{{ENDPOINT}}/shippings/1034234', body: {
 
 ```shell
 curl --header "Content-Type: application/json" \
-     --data '{"status":"shipping", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
+     --data '{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
      https://{{ENDPOINT}}/shippings/1034234
 ```
 
@@ -220,6 +181,7 @@ ID | The ID of shipment to update
 Parameter | Mandatory | Description
 --------- | --------- | -----------
 status | No | Current status of shipment: <ul><li>`shipping`: in process of shipping</li><li>`completed`: the delivery completed</li><li>`cancelled`: any error that occur and make the shipping incomplete</li></ul>
+tracking_code | No | Tracking code that will be printed on the parcel
 weight | No | Weight in kilogram unit (0.05 = 50 gram)
 reference_id | No | Any reference id that will be needed on other end
 note | No | Any free text for given shipment
