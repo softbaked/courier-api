@@ -45,6 +45,7 @@ In case of any error on webhook, you can [query list of shipments](#get-shipment
   "id": 1034234,
   "status": "new",
   "sender": {
+    "id": 1123,
     "name": "Miss Pimploen",
     "phone": "086-123-4456",
     "email": "pimploen@page365.net",
@@ -100,7 +101,7 @@ postcode | false | Postcode
 ## Register Webhook
 
 ```ruby
-HTTParty.post('https://page365.net/shippings', body: {
+HTTParty.post('https://{{ENDPOINT}}/shippings', body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/webhook'
 }.to_json)
@@ -109,7 +110,7 @@ HTTParty.post('https://page365.net/shippings', body: {
 ```shell
 curl --header "Content-Type: application/json" \
      --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}' \
-     https://page365.net/shippings
+     https://{{ENDPOINT}}/shippings
 ```
 
 > The above command returns JSON structured like this:
@@ -124,7 +125,7 @@ This endpoint allow you to register webhook url to Page365 system.
 
 ### HTTP Request
 
-`POST https://page365.net/shippings`
+`POST https://{{ENDPOINT}}/shippings`
 
 ### Request Parameters
 
@@ -140,7 +141,7 @@ The register might take a few days, due to verification process before actual sa
 ## Update Shipment Tracking Code
 
 ```ruby
-HTTParty.post('https://page365.net/shippings/1034234', body: {
+HTTParty.post('https://{{ENDPOINT}}/shippings/1034234', body: {
   tracking_code: "ABQZ1234KL"
 }.to_json)
 ```
@@ -148,7 +149,7 @@ HTTParty.post('https://page365.net/shippings/1034234', body: {
 ```shell
 curl --header "Content-Type: application/json" \
      --data '{"tracking_code":"ABQZ1234KL"}' \
-     https://page365.net/shippings/1034234
+     https://{{ENDPOINT}}/shippings/1034234
 ```
 
 > The above command returns JSON structured like this:
@@ -163,7 +164,7 @@ This endpoint allow you to update tracking code to specific shipment.
 
 ### HTTP Request
 
-`POST https://page365.net/shippings/<ID>`
+`POST https://{{ENDPOINT}}/shippings/<ID>`
 
 ### URL Parameters
 
@@ -177,18 +178,21 @@ Parameter | Description
 --------- | -----------
 tracking_code | Tracking code that will be printed on the parcel
 
-## Confirm Shipment Weight
+## Update Shipment Details
 
 ```ruby
-HTTParty.post('https://page365.net/shippings/1034234', body: {
-  weight: 0.05
+HTTParty.post('https://{{ENDPOINT}}/shippings/1034234', body: {
+  status: 'shipping',
+  weight: 0.05,
+  reference_id: '003-11245',
+  note: 'dimention size: 3 * 3 * 3'
 }.to_json)
 ```
 
 ```shell
 curl --header "Content-Type: application/json" \
-     --data '{"weight":0.05}' \
-     https://page365.net/shippings/1034234
+     --data '{"status":"shipping", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
+     https://{{ENDPOINT}}/shippings/1034234
 ```
 
 > The above command returns JSON structured like this:
@@ -199,11 +203,11 @@ curl --header "Content-Type: application/json" \
 }
 ```
 
-This endpoint allow you to update shipment weight.
+This endpoint allow you to update shipment status, weight, ref id, or note.
 
 ### HTTP Request
 
-`POST https://page365.net/shippings/<ID>`
+`POST https://{{ENDPOINT}}/shippings/<ID>`
 
 ### URL Parameters
 
@@ -213,56 +217,19 @@ ID | The ID of shipment to update
 
 ### Request Parameters
 
-Parameter | Description
---------- | -----------
-weight | Weight in kilogram unit (0.05 = 50 gram)
-
-## Update Shipment Status
-
-```ruby
-HTTParty.post('https://page365.net/shippings/1034234', body: {
-  status: 'shipping'
-}.to_json)
-```
-
-```shell
-curl --header "Content-Type: application/json" \
-     --data '{"status":"shipping"}' \
-     https://page365.net/shippings/1034234
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "success": 1
-}
-```
-
-This endpoint allow you to update shipment status.
-
-### HTTP Request
-
-`POST https://page365.net/shippings/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of shipment to update
-
-### Request Parameters
-
-Parameter | Description
---------- | -----------
-status | Current status of shipment: <ul><li>`shipping`: in process of shipping</li><li>`completed`: the delivery completed</li><li>`cancelled`: any error that occur and make the shipping incomplete</li></ul>
+Parameter | Mandatory | Description
+--------- | --------- | -----------
+status | No | Current status of shipment: <ul><li>`shipping`: in process of shipping</li><li>`completed`: the delivery completed</li><li>`cancelled`: any error that occur and make the shipping incomplete</li></ul>
+weight | No | Weight in kilogram unit (0.05 = 50 gram)
+reference_id | No | Any reference id that will be needed on other end
+note | No | Any free text for given shipment
 
 # GET API
 
 ## Get Shipment List
 
 ```ruby
-HTTParty.get('https://page365.net/shippings', body: {
+HTTParty.get('https://{{ENDPOINT}}/shippings', body: {
   name: 'SuperFastShipping'
 }.to_json)
 ```
@@ -271,7 +238,7 @@ HTTParty.get('https://page365.net/shippings', body: {
 curl --header "Content-Type: application/json" \
      --request GET \
      --data '{"name":"SuperFastShipping"}' \
-     https://page365.net/shippings
+     https://{{ENDPOINT}}/shippings
 ```
 
 > The above command returns JSON structured like this:
@@ -293,7 +260,7 @@ This endpoint allow you to get list of shipments that register for your company 
 
 ### HTTP Request
 
-`GET https://page365.net/shippings`
+`GET https://{{ENDPOINT}}/shippings`
 
 ### Request Parameters
 
@@ -311,11 +278,11 @@ status | false | Current status of shipment (Default: `new`)
 ## Get Specific Shipment
 
 ```ruby
-HTTParty.get('https://page365.net/shippings/1124232')
+HTTParty.get('https://{{ENDPOINT}}/shippings/1124232')
 ```
 
 ```shell
-curl https://page365.net/shippings/1124232
+curl https://{{ENDPOINT}}/shippings/1124232
 ```
 
 > The above command returns JSON structured like this:
@@ -350,7 +317,7 @@ This endpoint allow you to get details of specific shipment.
 
 ### HTTP Request
 
-`GET https://page365.net/shippings/<ID>`
+`GET https://{{ENDPOINT}}/shippings/<ID>`
 
 ### URL Parameters
 
@@ -372,6 +339,7 @@ is_pickup | false | Is this shipment require pickup or not? (Default: 0)
 
 Parameter | Allow Null | Description
 --------- | ---------- | -----------
+id | true | User id (Mandatory on sender detail)
 name | false | User name
 phone | true | User phone, free text
 email | true | User email, allow null
@@ -383,3 +351,63 @@ Parameter | Allow Null | Description
 --------- | ---------- | -----------
 text | false | Address detail on text, free text
 postcode | false | Postcode
+
+## Get User
+
+```ruby
+HTTParty.get('https://{{ENDPOINT}}/users', body: {
+  id: 1123
+}.to_json)
+```
+
+```shell
+curl --header "Content-Type: application/json" \
+     --request GET \
+     --data '{"id":1123}' \
+     https://{{ENDPOINT}}/shippings
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 1123,
+  "name": "Miss Pimploen",
+  "phone": "086-123-4456",
+  "email": "pimploen@page365.net",
+  "address": {
+    "text": "555 Soi Sukhumvit 63 Khwaeng Khlong Tan Nuea, Khet Watthana, Krung Thep Maha Nakhon 10110",
+    "postcode": 10110
+  }
+}
+```
+
+This endpoint allow you to get detail of specific user, for example, sender detail. Benefit on contact and billing to sender.
+
+### HTTP Request
+
+`GET https://{{ENDPOINT}}/users`
+
+### Request Parameters
+
+Parameter | Description
+--------- | -----------
+id | User id
+
+### Response Body
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+id | true | User id
+name | false | User name
+phone | true | User phone, free text
+email | true | User email, allow null
+address | false | (Address object) Address detail
+
+#### Address object
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+text | false | Address detail on text, free text
+postcode | false | Postcode
+
