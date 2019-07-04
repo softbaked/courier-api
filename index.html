@@ -514,7 +514,7 @@ The register might take a few days, due to verification process before actual sa
 <tr>
 <td>status</td>
 <td>No</td>
-<td>Current status of shipment: <ul><li><code>shipping</code>: in process of shipping</li><li><code>completed</code>: the delivery completed</li><li><code>cancelled</code>: any error that occur and make the shipping incomplete</li></ul></td>
+<td>Current status of shipment: <ul><li><code>new</code>: waiting for send / pickup</li><li><code>shipping</code>: in process of shipping</li><li><code>completed</code>: the delivery completed</li><li><code>cancelled</code>: any error that occur and make the shipping incomplete</li><li><code>returned</code>: returned parcel to sender completed</li></ul></td>
 </tr>
 <tr>
 <td>tracking_code</td>
@@ -535,6 +535,11 @@ The register might take a few days, due to verification process before actual sa
 <td>note</td>
 <td>No</td>
 <td>Any free text for given shipment</td>
+</tr>
+<tr>
+<td>error</td>
+<td>No</td>
+<td>Reason for cancelled status</td>
 </tr>
 </tbody></table>
 <h1 id='get-api'>GET API</h1><h2 id='get-shipment-list'>Get Shipment List</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/shipments'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
