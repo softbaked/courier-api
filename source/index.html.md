@@ -192,11 +192,12 @@ ID | The ID of shipment to update
 
 Parameter | Mandatory | Description
 --------- | --------- | -----------
-status | No | Current status of shipment: <ul><li>`shipping`: in process of shipping</li><li>`completed`: the delivery completed</li><li>`cancelled`: any error that occur and make the shipping incomplete</li></ul>
+status | No | Current status of shipment: <ul><li>`new`: waiting for send / pickup</li><li>`shipping`: in process of shipping</li><li>`completed`: the delivery completed</li><li>`cancelled`: any error that occur and make the shipping incomplete</li><li>`returned`: returned parcel to sender completed</li></ul>
 tracking_code | No | Tracking code that will be printed on the parcel
 weight | No | Weight in kilogram unit (0.05 = 50 gram)
 reference_id | No | Any reference id that will be needed on other end
 note | No | Any free text for given shipment
+error | No | Reason for cancelled status
 
 # GET API
 
