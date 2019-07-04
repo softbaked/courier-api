@@ -103,6 +103,7 @@ postcode | false | Postcode
 #### Parcel object
 
 Parameter | Allow Null | Description
+--------- | ---------- | -----------
 is_pickup | false | Is this shipment require pickup or not? (Default: 0)
 is_cod | false | Is this shipment cod? (Default: 0)
 price | true | Shipment price, in case of cod
@@ -330,6 +331,7 @@ postcode | false | Postcode
 #### Parcel object
 
 Parameter | Allow Null | Description
+--------- | ---------- | -----------
 is_pickup | false | Is this shipment require pickup or not? (Default: 0)
 is_cod | false | Is this shipment cod? (Default: 0)
 price | true | Shipment price, in case of cod
