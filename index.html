@@ -409,10 +409,29 @@
 </tr>
 </tbody></table>
 <h4 id='parcel-object'>Parcel object</h4>
-<p>Parameter | Allow Null | Description
-is_pickup | false | Is this shipment require pickup or not? (Default: 0)
-is_cod | false | Is this shipment cod? (Default: 0)
-price | true | Shipment price, in case of cod</p>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Allow Null</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>is_pickup</td>
+<td>false</td>
+<td>Is this shipment require pickup or not? (Default: 0)</td>
+</tr>
+<tr>
+<td>is_cod</td>
+<td>false</td>
+<td>Is this shipment cod? (Default: 0)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>Shipment price, in case of cod</td>
+</tr>
+</tbody></table>
 <h1 id='post-api'>POST API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/couriers'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
   <span class="ss">url: </span><span class="s1">'https://www.super-fast-shipping.com/webhook'</span>
@@ -709,10 +728,29 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </tbody></table>
 <h4 id='parcel-object-2'>Parcel object</h4>
-<p>Parameter | Allow Null | Description
-is_pickup | false | Is this shipment require pickup or not? (Default: 0)
-is_cod | false | Is this shipment cod? (Default: 0)
-price | true | Shipment price, in case of cod</p>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Allow Null</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>is_pickup</td>
+<td>false</td>
+<td>Is this shipment require pickup or not? (Default: 0)</td>
+</tr>
+<tr>
+<td>is_cod</td>
+<td>false</td>
+<td>Is this shipment cod? (Default: 0)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>true</td>
+<td>Shipment price, in case of cod</td>
+</tr>
+</tbody></table>
 <h2 id='get-user'>Get User</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/users'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">id: </span><span class="mi">1123</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
