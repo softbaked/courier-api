@@ -63,7 +63,11 @@ In case of any error on webhook, you can [query list of shipments](#get-shipment
       "postcode": 10110
     }
   },
-  "is_pickup": 0
+  "parcel": {
+    "is_pickup": 0,
+    "is_cod": 1,
+    "price": 150.00
+  }
 }
 ```
 
@@ -77,7 +81,7 @@ id | false | Shipment id
 status | false | Current status of shipment (Default: `new`)
 sender | false | (User object) Sender detail
 receiver | false | (User object) Receiver detail
-is_pickup | false | Is this shipment require pickup or not? (Default: 0)
+parcel | false | (Parcel object) Parcel detail
 
 #### User object
 
@@ -96,12 +100,19 @@ Parameter | Allow Null | Description
 text | false | Address detail on text, free text
 postcode | false | Postcode
 
+#### Parcel object
+
+Parameter | Allow Null | Description
+is_pickup | false | Is this shipment require pickup or not? (Default: 0)
+is_cod | false | Is this shipment cod? (Default: 0)
+price | true | Shipment price, in case of cod
+
 # POST API
 
 ## Register Webhook
 
 ```ruby
-HTTParty.post('https://{{ENDPOINT}}/shippings', body: {
+HTTParty.post('https://{{ENDPOINT}}/couriers', body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/webhook'
 }.to_json)
@@ -110,7 +121,7 @@ HTTParty.post('https://{{ENDPOINT}}/shippings', body: {
 ```shell
 curl --header "Content-Type: application/json" \
      --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}' \
-     https://{{ENDPOINT}}/shippings
+     https://{{ENDPOINT}}/couriers
 ```
 
 > The above command returns JSON structured like this:
@@ -125,7 +136,7 @@ This endpoint allow you to register webhook url to Page365 system.
 
 ### HTTP Request
 
-`POST https://{{ENDPOINT}}/shippings`
+`POST https://{{ENDPOINT}}/couriers`
 
 ### Request Parameters
 
@@ -141,7 +152,7 @@ The register might take a few days, due to verification process before actual sa
 ## Update Shipment Details
 
 ```ruby
-HTTParty.post('https://{{ENDPOINT}}/shippings/1034234', body: {
+HTTParty.post('https://{{ENDPOINT}}/shipments/1034234', body: {
   status: 'shipping',
   tracking_code: "ABQZ1234KL",
   weight: 0.05,
@@ -153,7 +164,7 @@ HTTParty.post('https://{{ENDPOINT}}/shippings/1034234', body: {
 ```shell
 curl --header "Content-Type: application/json" \
      --data '{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
-     https://{{ENDPOINT}}/shippings/1034234
+     https://{{ENDPOINT}}/shipments/1034234
 ```
 
 > The above command returns JSON structured like this:
@@ -168,7 +179,7 @@ This endpoint allow you to update shipment status, weight, ref id, or note.
 
 ### HTTP Request
 
-`POST https://{{ENDPOINT}}/shippings/<ID>`
+`POST https://{{ENDPOINT}}/shipments/<ID>`
 
 ### URL Parameters
 
@@ -191,7 +202,7 @@ note | No | Any free text for given shipment
 ## Get Shipment List
 
 ```ruby
-HTTParty.get('https://{{ENDPOINT}}/shippings', body: {
+HTTParty.get('https://{{ENDPOINT}}/shipments', body: {
   name: 'SuperFastShipping'
 }.to_json)
 ```
@@ -200,7 +211,7 @@ HTTParty.get('https://{{ENDPOINT}}/shippings', body: {
 curl --header "Content-Type: application/json" \
      --request GET \
      --data '{"name":"SuperFastShipping"}' \
-     https://{{ENDPOINT}}/shippings
+     https://{{ENDPOINT}}/shipments
 ```
 
 > The above command returns JSON structured like this:
@@ -222,7 +233,7 @@ This endpoint allow you to get list of shipments that register for your company 
 
 ### HTTP Request
 
-`GET https://{{ENDPOINT}}/shippings`
+`GET https://{{ENDPOINT}}/shipments`
 
 ### Request Parameters
 
@@ -240,11 +251,11 @@ status | false | Current status of shipment (Default: `new`)
 ## Get Specific Shipment
 
 ```ruby
-HTTParty.get('https://{{ENDPOINT}}/shippings/1124232')
+HTTParty.get('https://{{ENDPOINT}}/shipments/1124232')
 ```
 
 ```shell
-curl https://{{ENDPOINT}}/shippings/1124232
+curl https://{{ENDPOINT}}/shipments/1124232
 ```
 
 > The above command returns JSON structured like this:
@@ -271,7 +282,9 @@ curl https://{{ENDPOINT}}/shippings/1124232
       "postcode": 10110
     }
   },
-  "is_pickup": 0
+  "parcel": {
+    "is_pickup": 0,
+    "is_cod": 0
 }
 ```
 
@@ -279,7 +292,7 @@ This endpoint allow you to get details of specific shipment.
 
 ### HTTP Request
 
-`GET https://{{ENDPOINT}}/shippings/<ID>`
+`GET https://{{ENDPOINT}}/shipments/<ID>`
 
 ### URL Parameters
 
@@ -295,7 +308,7 @@ id | false | Shipment id
 status | false | Current status of shipment (Default: `new`)
 sender | false | (User object) Sender detail
 receiver | false | (User object) Receiver detail
-is_pickup | false | Is this shipment require pickup or not? (Default: 0)
+parcel | false | (Parcel object) Parcel detail
 
 #### User object
 
@@ -314,6 +327,13 @@ Parameter | Allow Null | Description
 text | false | Address detail on text, free text
 postcode | false | Postcode
 
+#### Parcel object
+
+Parameter | Allow Null | Description
+is_pickup | false | Is this shipment require pickup or not? (Default: 0)
+is_cod | false | Is this shipment cod? (Default: 0)
+price | true | Shipment price, in case of cod
+
 ## Get User
 
 ```ruby
@@ -326,7 +346,7 @@ HTTParty.get('https://{{ENDPOINT}}/users', body: {
 curl --header "Content-Type: application/json" \
      --request GET \
      --data '{"id":1123}' \
-     https://{{ENDPOINT}}/shippings
+     https://{{ENDPOINT}}/users
 ```
 
 > The above command returns JSON structured like this:
