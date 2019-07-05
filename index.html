@@ -432,6 +432,10 @@
 <td>Shipment price, in case of cod</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+Optional: webhook normally expect response :ok, but can also receive <a href="#update-shipment-details">shipment object</a> too.
+</aside>
 <h1 id='post-api'>POST API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://{{ENDPOINT}}/couriers'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
   <span class="ss">url: </span><span class="s1">'https://www.super-fast-shipping.com/webhook'</span>
