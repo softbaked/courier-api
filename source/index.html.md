@@ -34,6 +34,15 @@ Here is the API call, webhook flow that is designed for Page365 Shipping API:
 
 In case of any error on webhook, you can [query list of shipments](#get-shipment-list), or [specific shipment](#get-specific-shipment) by GET API anytime.
 
+# Environment endpoint
+
+for <ENDPOINT> value in each api.
+
+Environnment | URL
+------------ | ---
+Staging | `TBD`
+Production | `https://courier.page365.net/`
+
 # Webhook
 
 ## Shipment Created
