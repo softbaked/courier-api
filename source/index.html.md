@@ -108,6 +108,10 @@ is_pickup | false | Is this shipment require pickup or not? (Default: 0)
 is_cod | false | Is this shipment cod? (Default: 0)
 price | true | Shipment price, in case of cod
 
+<aside class="notice">
+Optional: webhook normally expect response :ok, but can also receive <a href="#update-shipment-details">shipment object</a> too.
+</aside>
+
 # POST API
 
 ## Register Webhook
