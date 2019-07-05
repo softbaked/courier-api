@@ -79,18 +79,18 @@ Parameter | Allow Null | Description
 --------- | ---------- | -----------
 id | false | Shipment id
 status | false | Current status of shipment (Default: `new`)
-sender | false | (User object) Sender detail
-receiver | false | (User object) Receiver detail
+sender | false | (Account object) Sender detail
+receiver | false | (Account object) Receiver detail
 parcel | false | (Parcel object) Parcel detail
 
-#### User object
+#### Account object
 
 Parameter | Allow Null | Description
 --------- | ---------- | -----------
-id | true | User id (Mandatory on sender detail)
-name | false | User name
-phone | true | User phone, free text
-email | true | User email, allow null
+id | true | Account id (Mandatory on sender detail)
+name | false | Account name
+phone | true | Account phone, free text
+email | true | Account email, allow null
 address | false | (Address object) Address detail
 
 #### Address object
@@ -110,6 +110,9 @@ price | true | Shipment price, in case of cod
 
 <aside class="notice">
 Optional: webhook normally expect response :ok, but can also receive <a href="#update-shipment-details">shipment object</a> too.
+</aside>
+<aside class="warning">
+Warning: any server error code (5xx), will trigger retry logic, 3 times in total. For any client error (4xx), system will not retry at all.
 </aside>
 
 # POST API
@@ -312,18 +315,18 @@ Parameter | Allow Null | Description
 --------- | ---------- | -----------
 id | false | Shipment id
 status | false | Current status of shipment (Default: `new`)
-sender | false | (User object) Sender detail
-receiver | false | (User object) Receiver detail
+sender | false | (Account object) Sender detail
+receiver | false | (Account object) Receiver detail
 parcel | false | (Parcel object) Parcel detail
 
-#### User object
+#### Account object
 
 Parameter | Allow Null | Description
 --------- | ---------- | -----------
-id | true | User id (Mandatory on sender detail)
-name | false | User name
-phone | true | User phone, free text
-email | true | User email, allow null
+id | true | Account id (Mandatory on sender detail)
+name | false | Account name
+phone | true | Account phone, free text
+email | true | Account email, allow null
 address | false | (Address object) Address detail
 
 #### Address object
@@ -341,14 +344,19 @@ is_pickup | false | Is this shipment require pickup or not? (Default: 0)
 is_cod | false | Is this shipment cod? (Default: 0)
 price | true | Shipment price, in case of cod
 
-## Get User
+## Get Account
 
 ```ruby
-HTTParty.get('https://<ENDPOINT>/users/13')
+HTTParty.get('https://<ENDPOINT>/accounts/<ID>', body: {
+  name: 'SuperFastShipping'
+}.to_json)
 ```
 
 ```shell
-curl https://<ENDPOINT>/users/13
+curl --header "Content-Type: application/json" \
+     --request GET \
+     --data '{"name":"SuperFastShipping"}' \
+     https://<ENDPOINT>/accounts/<ID>
 ```
 
 > The above command returns JSON structured like this:
@@ -371,26 +379,27 @@ curl https://<ENDPOINT>/users/13
 }
 ```
 
-This endpoint allow you to get detail of specific user, for example, sender detail. Benefit on contact and billing to sender.
+This endpoint allow you to get detail of specific account, for example, sender detail. Benefit on contact and billing to sender.
 
 ### HTTP Request
 
-`GET https://<ENDPOINT>/users/<ID>`
+`GET https://<ENDPOINT>/account/<ID>`
 
 ### Request Parameters
 
 Parameter | Description
 --------- | -----------
-id | User id
+id | Account id
+name | Name of the shipping company
 
 ### Response Body
 
 Parameter | Allow Null | Description
 --------- | ---------- | -----------
-id | true | User id
-name | false | User name
-phone | true | User phone, free text
-email | true | User email, allow null
+id | true | Account id
+name | false | Account name
+phone | true | Account phone, free text
+email | true | Account email, allow null
 address | false | (Address object) Address detail
 bank_account | true | (Bank account object) Bank account detail
 
