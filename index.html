@@ -254,7 +254,7 @@
                     <a href="#get-specific-shipment" class="toc-h2 toc-link" data-title="Get Specific Shipment">Get Specific Shipment</a>
                   </li>
                   <li>
-                    <a href="#get-user" class="toc-h2 toc-link" data-title="Get User">Get User</a>
+                    <a href="#get-account" class="toc-h2 toc-link" data-title="Get Account">Get Account</a>
                   </li>
               </ul>
           </li>
@@ -342,12 +342,12 @@
 <tr>
 <td>sender</td>
 <td>false</td>
-<td>(User object) Sender detail</td>
+<td>(Account object) Sender detail</td>
 </tr>
 <tr>
 <td>receiver</td>
 <td>false</td>
-<td>(User object) Receiver detail</td>
+<td>(Account object) Receiver detail</td>
 </tr>
 <tr>
 <td>parcel</td>
@@ -355,7 +355,7 @@
 <td>(Parcel object) Parcel detail</td>
 </tr>
 </tbody></table>
-<h4 id='user-object'>User object</h4>
+<h4 id='account-object'>Account object</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -366,22 +366,22 @@
 <tr>
 <td>id</td>
 <td>true</td>
-<td>User id (Mandatory on sender detail)</td>
+<td>Account id (Mandatory on sender detail)</td>
 </tr>
 <tr>
 <td>name</td>
 <td>false</td>
-<td>User name</td>
+<td>Account name</td>
 </tr>
 <tr>
 <td>phone</td>
 <td>true</td>
-<td>User phone, free text</td>
+<td>Account phone, free text</td>
 </tr>
 <tr>
 <td>email</td>
 <td>true</td>
-<td>User email, allow null</td>
+<td>Account email, allow null</td>
 </tr>
 <tr>
 <td>address</td>
@@ -435,6 +435,10 @@
 
 <aside class="notice">
 Optional: webhook normally expect response :ok, but can also receive <a href="#update-shipment-details">shipment object</a> too.
+</aside>
+
+<aside class="warning">
+Warning: any server error code (5xx), will trigger retry logic, 3 times in total. For any client error (4xx), system will not retry at all.
 </aside>
 <h1 id='post-api'>POST API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/couriers'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
@@ -670,12 +674,12 @@ The register might take a few days, due to verification process before actual sa
 <tr>
 <td>sender</td>
 <td>false</td>
-<td>(User object) Sender detail</td>
+<td>(Account object) Sender detail</td>
 </tr>
 <tr>
 <td>receiver</td>
 <td>false</td>
-<td>(User object) Receiver detail</td>
+<td>(Account object) Receiver detail</td>
 </tr>
 <tr>
 <td>parcel</td>
@@ -683,7 +687,7 @@ The register might take a few days, due to verification process before actual sa
 <td>(Parcel object) Parcel detail</td>
 </tr>
 </tbody></table>
-<h4 id='user-object-2'>User object</h4>
+<h4 id='account-object-2'>Account object</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -694,22 +698,22 @@ The register might take a few days, due to verification process before actual sa
 <tr>
 <td>id</td>
 <td>true</td>
-<td>User id (Mandatory on sender detail)</td>
+<td>Account id (Mandatory on sender detail)</td>
 </tr>
 <tr>
 <td>name</td>
 <td>false</td>
-<td>User name</td>
+<td>Account name</td>
 </tr>
 <tr>
 <td>phone</td>
 <td>true</td>
-<td>User phone, free text</td>
+<td>Account phone, free text</td>
 </tr>
 <tr>
 <td>email</td>
 <td>true</td>
-<td>User email, allow null</td>
+<td>Account email, allow null</td>
 </tr>
 <tr>
 <td>address</td>
@@ -760,8 +764,13 @@ The register might take a few days, due to verification process before actual sa
 <td>Shipment price, in case of cod</td>
 </tr>
 </tbody></table>
-<h2 id='get-user'>Get User</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/users/13'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl https://&lt;ENDPOINT&gt;/users/13
+<h2 id='get-account'>Get Account</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/accounts/&lt;ID&gt;'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+  <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span>
+<span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     --request GET <span class="se">\</span>
+     --data <span class="s1">'{"name":"SuperFastShipping"}'</span> <span class="se">\</span>
+     https://&lt;ENDPOINT&gt;/accounts/&lt;ID&gt;
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -782,9 +791,9 @@ The register might take a few days, due to verification process before actual sa
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint allow you to get detail of specific user, for example, sender detail. Benefit on contact and billing to sender.</p>
+<p>This endpoint allow you to get detail of specific account, for example, sender detail. Benefit on contact and billing to sender.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>GET https://&lt;ENDPOINT&gt;/users/&lt;ID&gt;</code></p>
+<p><code>GET https://&lt;ENDPOINT&gt;/account/&lt;ID&gt;</code></p>
 <h3 id='request-parameters-4'>Request Parameters</h3>
 <table><thead>
 <tr>
@@ -794,7 +803,11 @@ The register might take a few days, due to verification process before actual sa
 </thead><tbody>
 <tr>
 <td>id</td>
-<td>User id</td>
+<td>Account id</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Name of the shipping company</td>
 </tr>
 </tbody></table>
 <h3 id='response-body-3'>Response Body</h3>
@@ -808,22 +821,22 @@ The register might take a few days, due to verification process before actual sa
 <tr>
 <td>id</td>
 <td>true</td>
-<td>User id</td>
+<td>Account id</td>
 </tr>
 <tr>
 <td>name</td>
 <td>false</td>
-<td>User name</td>
+<td>Account name</td>
 </tr>
 <tr>
 <td>phone</td>
 <td>true</td>
-<td>User phone, free text</td>
+<td>Account phone, free text</td>
 </tr>
 <tr>
 <td>email</td>
 <td>true</td>
-<td>User email, allow null</td>
+<td>Account email, allow null</td>
 </tr>
 <tr>
 <td>address</td>
