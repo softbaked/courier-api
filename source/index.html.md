@@ -201,7 +201,7 @@ tracking_code | No | Tracking code that will be printed on the parcel
 weight | No | Weight in kilogram unit (0.05 = 50 gram)
 reference_id | No | Any reference id that will be needed on other end
 note | No | Any free text for given shipment
-error | No | Reason for cancelled status
+error_message | No | Reason for cancelled status
 
 # GET API
 
