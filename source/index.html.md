@@ -117,7 +117,7 @@ Optional: webhook normally expect response :ok, but can also receive <a href="#u
 ## Register Webhook
 
 ```ruby
-HTTParty.post('https://{{ENDPOINT}}/couriers', body: {
+HTTParty.post('https://<ENDPOINT>/couriers', body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/webhook'
 }.to_json)
@@ -126,7 +126,7 @@ HTTParty.post('https://{{ENDPOINT}}/couriers', body: {
 ```shell
 curl --header "Content-Type: application/json" \
      --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}' \
-     https://{{ENDPOINT}}/couriers
+     https://<ENDPOINT>/couriers
 ```
 
 > The above command returns JSON structured like this:
@@ -141,7 +141,7 @@ This endpoint allow you to register webhook url to Page365 system.
 
 ### HTTP Request
 
-`POST https://{{ENDPOINT}}/couriers`
+`POST https://<ENDPOINT>/couriers`
 
 ### Request Parameters
 
@@ -157,7 +157,7 @@ The register might take a few days, due to verification process before actual sa
 ## Update Shipment Details
 
 ```ruby
-HTTParty.post('https://{{ENDPOINT}}/shipments/1034234', body: {
+HTTParty.post('https://<ENDPOINT>/shipments/1034234', body: {
   status: 'shipping',
   tracking_code: "ABQZ1234KL",
   weight: 0.05,
@@ -169,7 +169,7 @@ HTTParty.post('https://{{ENDPOINT}}/shipments/1034234', body: {
 ```shell
 curl --header "Content-Type: application/json" \
      --data '{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
-     https://{{ENDPOINT}}/shipments/1034234
+     https://<ENDPOINT>/shipments/1034234
 ```
 
 > The above command returns JSON structured like this:
@@ -184,7 +184,7 @@ This endpoint allow you to update shipment status, weight, ref id, or note.
 
 ### HTTP Request
 
-`POST https://{{ENDPOINT}}/shipments/<ID>`
+`POST https://<ENDPOINT>/shipments/<ID>`
 
 ### URL Parameters
 
@@ -208,7 +208,7 @@ error | No | Reason for cancelled status
 ## Get Shipment List
 
 ```ruby
-HTTParty.get('https://{{ENDPOINT}}/shipments', body: {
+HTTParty.get('https://<ENDPOINT>/shipments', body: {
   name: 'SuperFastShipping'
 }.to_json)
 ```
@@ -217,7 +217,7 @@ HTTParty.get('https://{{ENDPOINT}}/shipments', body: {
 curl --header "Content-Type: application/json" \
      --request GET \
      --data '{"name":"SuperFastShipping"}' \
-     https://{{ENDPOINT}}/shipments
+     https://<ENDPOINT>/shipments
 ```
 
 > The above command returns JSON structured like this:
@@ -239,7 +239,7 @@ This endpoint allow you to get list of shipments that register for your company 
 
 ### HTTP Request
 
-`GET https://{{ENDPOINT}}/shipments`
+`GET https://<ENDPOINT>/shipments`
 
 ### Request Parameters
 
@@ -257,11 +257,11 @@ status | false | Current status of shipment (Default: `new`)
 ## Get Specific Shipment
 
 ```ruby
-HTTParty.get('https://{{ENDPOINT}}/shipments/1124232')
+HTTParty.get('https://<ENDPOINT>/shipments/1124232')
 ```
 
 ```shell
-curl https://{{ENDPOINT}}/shipments/1124232
+curl https://<ENDPOINT>/shipments/1124232
 ```
 
 > The above command returns JSON structured like this:
@@ -298,7 +298,7 @@ This endpoint allow you to get details of specific shipment.
 
 ### HTTP Request
 
-`GET https://{{ENDPOINT}}/shipments/<ID>`
+`GET https://<ENDPOINT>/shipments/<ID>`
 
 ### URL Parameters
 
@@ -344,16 +344,11 @@ price | true | Shipment price, in case of cod
 ## Get User
 
 ```ruby
-HTTParty.get('https://{{ENDPOINT}}/users', body: {
-  id: 1123
-}.to_json)
+HTTParty.get('https://<ENDPOINT>/users/13')
 ```
 
 ```shell
-curl --header "Content-Type: application/json" \
-     --request GET \
-     --data '{"id":1123}' \
-     https://{{ENDPOINT}}/users
+curl https://<ENDPOINT>/users/13
 ```
 
 > The above command returns JSON structured like this:
@@ -367,6 +362,11 @@ curl --header "Content-Type: application/json" \
   "address": {
     "text": "555 Soi Sukhumvit 63 Khwaeng Khlong Tan Nuea, Khet Watthana, Krung Thep Maha Nakhon 10110",
     "postcode": 10110
+  },
+  "bank_account": {
+    "bank": "kbank",
+    "number": "742-0-17141-1",
+    "name": "Mr. X"
   }
 }
 ```
@@ -375,7 +375,7 @@ This endpoint allow you to get detail of specific user, for example, sender deta
 
 ### HTTP Request
 
-`GET https://{{ENDPOINT}}/users`
+`GET https://<ENDPOINT>/users/<ID>`
 
 ### Request Parameters
 
@@ -392,6 +392,7 @@ name | false | User name
 phone | true | User phone, free text
 email | true | User email, allow null
 address | false | (Address object) Address detail
+bank_account | true | (Bank account object) Bank account detail
 
 #### Address object
 
@@ -400,3 +401,10 @@ Parameter | Allow Null | Description
 text | false | Address detail on text, free text
 postcode | false | Postcode
 
+#### Bank account object
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+bank | false | Name of bank company
+number | false | Bank number
+name | false | Bank owner's name
