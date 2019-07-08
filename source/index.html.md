@@ -25,7 +25,7 @@ We have language bindings in Shell, and Ruby. You can view code examples in the 
 
 Here is the API call, webhook flow that is designed for Page365 Shipping API:
 
-1. [Register webhook](#register-webhook) - first, register your company name along with webhook url that Page365 Shipping API will push data to.
+1. [Register webhook](#register-webhook) - first, register your company name along with webhook url that Page365 Shipping API will push data to, after confirmed, `api_key` will be sent to you.
 2. [Wait for webhook](#shipment-created) - then wait for webhook that will be send, after shipment being create. You will get shipment information from the webhook, such as, id, sender address, and receiver address.
 3. [Update tracking code](#update-shipment-tracking-code) - then you will send tracking code that will be on parcel label back to us.
 4. Customer bring parcel to your service store
@@ -170,6 +170,7 @@ The register might take a few days, due to verification process before actual sa
 
 ```ruby
 HTTParty.post('https://<ENDPOINT>/shipments/1034234', body: {
+  api_key: 'fsdg32532sa',
   status: 'shipping',
   tracking_code: "ABQZ1234KL",
   weight: 0.05,
@@ -180,7 +181,7 @@ HTTParty.post('https://<ENDPOINT>/shipments/1034234', body: {
 
 ```shell
 curl --header "Content-Type: application/json" \
-     --data '{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
+     --data '{"api_key":"fsdg32532sa", "status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
      https://<ENDPOINT>/shipments/1034234
 ```
 
@@ -208,6 +209,7 @@ ID | The ID of shipment to update
 
 Parameter | Mandatory | Description
 --------- | --------- | -----------
+api_key | Yes | API key that represent each courier
 status | No | Current status of shipment: <ul><li>`new`: waiting for send / pickup</li><li>`shipping`: in process of shipping</li><li>`completed`: the delivery completed</li><li>`cancelled`: any error that occur and make the shipping incomplete</li><li>`returned`: returned parcel to sender completed</li></ul>
 tracking_code | No | Tracking code that will be printed on the parcel
 weight | No | Weight in kilogram unit (0.05 = 50 gram)
@@ -221,6 +223,7 @@ error_message | No | Reason for cancelled status
 
 ```ruby
 HTTParty.get('https://<ENDPOINT>/shipments', body: {
+  api_key: 'fsdg32532sa',
   name: 'SuperFastShipping'
 }.to_json)
 ```
@@ -228,7 +231,7 @@ HTTParty.get('https://<ENDPOINT>/shipments', body: {
 ```shell
 curl --header "Content-Type: application/json" \
      --request GET \
-     --data '{"name":"SuperFastShipping"}' \
+     --data '{"api_key":"fsdg32532sa", "name":"SuperFastShipping"}' \
      https://<ENDPOINT>/shipments
 ```
 
@@ -257,6 +260,7 @@ This endpoint allow you to get list of shipments that register for your company 
 
 Parameter | Description
 --------- | -----------
+api_key | API key that represent each courier
 name | Name of the shipping company
 
 ### Response Body
@@ -269,11 +273,16 @@ status | false | Current status of shipment (Default: `new`)
 ## Get Specific Shipment
 
 ```ruby
-HTTParty.get('https://<ENDPOINT>/shipments/1124232')
+HTTParty.get('https://<ENDPOINT>/shipments/1124232', body: {
+  api_key: 'fsdg32532sa'
+}.to_json)
 ```
 
 ```shell
-curl https://<ENDPOINT>/shipments/1124232
+curl --header "Content-Type: application/json" \
+     --request GET \
+     --data '{"api_key":"fsdg32532sa"}' \
+     https://<ENDPOINT>/shipments/1124232
 ```
 
 > The above command returns JSON structured like this:
@@ -317,6 +326,7 @@ This endpoint allow you to get details of specific shipment.
 Parameter | Description
 --------- | -----------
 ID | The ID of shipment to update
+api_key | API key that represent each courier
 
 ### Response Body
 
@@ -357,14 +367,14 @@ price | true | Shipment price, in case of cod
 
 ```ruby
 HTTParty.get('https://<ENDPOINT>/accounts/<ID>', body: {
-  name: 'SuperFastShipping'
+  api_key: 'fsdg32532sa'
 }.to_json)
 ```
 
 ```shell
 curl --header "Content-Type: application/json" \
      --request GET \
-     --data '{"name":"SuperFastShipping"}' \
+     --data '{"api_key":"fsdg32532sa"}' \
      https://<ENDPOINT>/accounts/<ID>
 ```
 
@@ -399,7 +409,7 @@ This endpoint allow you to get detail of specific account, for example, sender d
 Parameter | Description
 --------- | -----------
 id | Account id
-name | Name of the shipping company
+api_key | API key that represent each courier
 
 ### Response Body
 
