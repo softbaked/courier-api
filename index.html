@@ -281,7 +281,7 @@
 <p>Here is the API call, webhook flow that is designed for Page365 Shipping API:</p>
 
 <ol>
-<li><a href="#register-webhook">Register webhook</a> - first, register your company name along with webhook url that Page365 Shipping API will push data to.</li>
+<li><a href="#register-webhook">Register webhook</a> - first, register your company name along with webhook url that Page365 Shipping API will push data to, after confirmed, <code>api_key</code> will be sent to you.</li>
 <li><a href="#shipment-created">Wait for webhook</a> - then wait for webhook that will be send, after shipment being create. You will get shipment information from the webhook, such as, id, sender address, and receiver address.</li>
 <li><a href="#update-shipment-tracking-code">Update tracking code</a> - then you will send tracking code that will be on parcel label back to us.</li>
 <li>Customer bring parcel to your service store</li>
@@ -500,6 +500,7 @@ Warning: any server error code (5xx), will trigger retry logic, 3 times in total
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
 <h2 id='update-shipment-details'>Update Shipment Details</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/shipments/1034234'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+  <span class="ss">api_key: </span><span class="s1">'fsdg32532sa'</span><span class="p">,</span>
   <span class="ss">status: </span><span class="s1">'shipping'</span><span class="p">,</span>
   <span class="ss">tracking_code: </span><span class="s2">"ABQZ1234KL"</span><span class="p">,</span>
   <span class="ss">weight: </span><span class="mi">0</span><span class="o">.</span><span class="mo">05</span><span class="p">,</span>
@@ -507,7 +508,7 @@ The register might take a few days, due to verification process before actual sa
   <span class="ss">note: </span><span class="s1">'dimention size: 3 * 3 * 3'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-     --data <span class="s1">'{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}'</span> <span class="se">\</span>
+     --data <span class="s1">'{"api_key":"fsdg32532sa", "status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}'</span> <span class="se">\</span>
      https://&lt;ENDPOINT&gt;/shipments/1034234
 </code></pre>
 <blockquote>
@@ -541,6 +542,11 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </thead><tbody>
 <tr>
+<td>api_key</td>
+<td>Yes</td>
+<td>API key that represent each courier</td>
+</tr>
+<tr>
 <td>status</td>
 <td>No</td>
 <td>Current status of shipment: <ul><li><code>new</code>: waiting for send / pickup</li><li><code>shipping</code>: in process of shipping</li><li><code>completed</code>: the delivery completed</li><li><code>cancelled</code>: any error that occur and make the shipping incomplete</li><li><code>returned</code>: returned parcel to sender completed</li></ul></td>
@@ -572,11 +578,12 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </tbody></table>
 <h1 id='get-api'>GET API</h1><h2 id='get-shipment-list'>Get Shipment List</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/shipments'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+  <span class="ss">api_key: </span><span class="s1">'fsdg32532sa'</span><span class="p">,</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      --request GET <span class="se">\</span>
-     --data <span class="s1">'{"name":"SuperFastShipping"}'</span> <span class="se">\</span>
+     --data <span class="s1">'{"api_key":"fsdg32532sa", "name":"SuperFastShipping"}'</span> <span class="se">\</span>
      https://&lt;ENDPOINT&gt;/shipments
 </code></pre>
 <blockquote>
@@ -604,6 +611,10 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </thead><tbody>
 <tr>
+<td>api_key</td>
+<td>API key that represent each courier</td>
+</tr>
+<tr>
 <td>name</td>
 <td>Name of the shipping company</td>
 </tr>
@@ -627,8 +638,13 @@ The register might take a few days, due to verification process before actual sa
 <td>Current status of shipment (Default: <code>new</code>)</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-shipment'>Get Specific Shipment</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/shipments/1124232'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl https://&lt;ENDPOINT&gt;/shipments/1124232
+<h2 id='get-specific-shipment'>Get Specific Shipment</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/shipments/1124232'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+  <span class="ss">api_key: </span><span class="s1">'fsdg32532sa'</span>
+<span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     --request GET <span class="se">\</span>
+     --data <span class="s1">'{"api_key":"fsdg32532sa"}'</span> <span class="se">\</span>
+     https://&lt;ENDPOINT&gt;/shipments/1124232
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -672,6 +688,10 @@ The register might take a few days, due to verification process before actual sa
 <tr>
 <td>ID</td>
 <td>The ID of shipment to update</td>
+</tr>
+<tr>
+<td>api_key</td>
+<td>API key that represent each courier</td>
 </tr>
 </tbody></table>
 <h3 id='response-body-2'>Response Body</h3>
@@ -786,11 +806,11 @@ The register might take a few days, due to verification process before actual sa
 </tr>
 </tbody></table>
 <h2 id='get-account'>Get Account</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/accounts/&lt;ID&gt;'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
-  <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span>
+  <span class="ss">api_key: </span><span class="s1">'fsdg32532sa'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      --request GET <span class="se">\</span>
-     --data <span class="s1">'{"name":"SuperFastShipping"}'</span> <span class="se">\</span>
+     --data <span class="s1">'{"api_key":"fsdg32532sa"}'</span> <span class="se">\</span>
      https://&lt;ENDPOINT&gt;/accounts/&lt;ID&gt;
 </code></pre>
 <blockquote>
@@ -827,8 +847,8 @@ The register might take a few days, due to verification process before actual sa
 <td>Account id</td>
 </tr>
 <tr>
-<td>name</td>
-<td>Name of the shipping company</td>
+<td>api_key</td>
+<td>API key that represent each courier</td>
 </tr>
 </tbody></table>
 <h3 id='response-body-3'>Response Body</h3>
