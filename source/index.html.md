@@ -1,13 +1,13 @@
 ---
-title: Page365 Shipping API
+title: Page365 Courier API
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
   - ruby
 
 toc_footers:
-  - <a href='https://github.com/lord/slate'>Powered by Slate</a>
-  - <a href='mailto:peace@page365.net'>Contact</a>
+  - <a href='https://www.page365.net/'>Developed by Page365</a>
+  - <a href='mailto:peace@page365.net'>Technical Contact</a>
 
 includes:
   - errors
@@ -17,15 +17,17 @@ search: true
 
 # Introduction
 
-Welcome to Page365 Shipping API! You can use our API to register webhook endpoint, confirm shipment weight, and update shipment status. Afterwards, Page365 will be responsible for create the shipment via webhook.
+Welcome to Page365 Courier API. This standard allows you to become a supported courier, delivering parcels for over 300,000 merchants on the Page365 platform.
 
-We have language bindings in Shell, and Ruby. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+The purpose of the Courier API is to expedit the importing/exporting of ecommerce transaction data. Courier is still responsible for collecting shipment fees from the merchant, for handling COD transfers, and for maintaining its own relationship with the merchant. The Courier API will refer to each merchant with a consistent Account ID to ease in this mapping, as well as provide basic information about each merchant such as bank account and pickup address.
 
-# How API works
+You can use the Courier API to register your webhook endpoint, at which Page365 will send new shipment orders. Subsequently, you can make requests according to this document to confirm shipment weight, and update shipment status for your users.
 
-Here is the API call, webhook flow that is designed for Page365 Shipping API:
+Courier API is implemented in standard HTTP REST protocol, and we do not yet have language libraries available. You can view examples for how to invoke the requests in Shell and Ruby in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-1. [Register webhook](#register-webhook) - first, register your company name along with webhook url that Page365 Shipping API will push data to, after confirmed, `secret_key` will be send to you.
+# How it works
+
+1. [Register webhook](#register-webhook) - first, make this request to set or update the webhook url that Page365 Courier API will push data to, after confirmed, `secret_key` will be send to you.
 2. [Wait for webhook](#shipment-created) - then wait for webhook that will be send, after shipment being create. You will get shipment information from the webhook, such as, id, sender address, and receiver address.
 3. [Update tracking code](#update-shipment-tracking-code) - then you will send tracking code that will be on parcel label back to us.
 4. Customer bring parcel to your service store
@@ -160,7 +162,7 @@ This endpoint allow you to patch registered webhook url on Page365 system.
 
 Parameter | Description
 --------- | -----------
-name | Name of the shipping company
+name | Name of the courier company
 url | Webhook url that Page365 will be send shipment information to
 
 <aside class="notice">
@@ -262,7 +264,7 @@ This endpoint allow you to get list of shipments that register for your company 
 
 Parameter | Description
 --------- | -----------
-name | Name of the shipping company
+name | Name of the courier company
 
 ### Response Body
 
