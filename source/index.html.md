@@ -124,12 +124,12 @@ Optional: webhook normally expect response :ok, but can also receive <a href="#u
 Warning: any server error code (5xx), will trigger retry logic, 3 times in total. For any client error (4xx), system will not retry at all.
 </aside>
 
-# POST API
+# PATCH API
 
 ## Register Webhook
 
 ```ruby
-HTTParty.post('https://<ENDPOINT>/couriers', body: {
+HTTParty.patch('https://<ENDPOINT>/couriers', body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/webhook'
 }.to_json)
@@ -137,6 +137,7 @@ HTTParty.post('https://<ENDPOINT>/couriers', body: {
 
 ```shell
 curl --header "Content-Type: application/json" \
+     --request PATCH \
      --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}' \
      https://<ENDPOINT>/couriers
 ```
@@ -149,11 +150,11 @@ curl --header "Content-Type: application/json" \
 }
 ```
 
-This endpoint allow you to register webhook url to Page365 system.
+This endpoint allow you to patch registered webhook url on Page365 system.
 
 ### HTTP Request
 
-`POST https://<ENDPOINT>/couriers`
+`PATCH https://<ENDPOINT>/couriers`
 
 ### Request Parameters
 
@@ -165,6 +166,8 @@ url | Webhook url that Page365 will be send shipment information to
 <aside class="notice">
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
+
+# POST API
 
 ## Update Shipment Details
 
