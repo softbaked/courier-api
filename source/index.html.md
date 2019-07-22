@@ -131,7 +131,7 @@ Warning: any server error code (5xx), will trigger retry logic, 3 times in total
 ## Register Webhook
 
 ```ruby
-HTTParty.patch('https://<ENDPOINT>/couriers', body: {
+HTTParty.patch('https://<ENDPOINT>/couriers', basic_auth: { username: secret_key }, body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/webhook'
 }.to_json)
@@ -140,6 +140,7 @@ HTTParty.patch('https://<ENDPOINT>/couriers', body: {
 ```shell
 curl --header "Content-Type: application/json" \
      --request PATCH \
+     -u secret_key \
      --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}' \
      https://<ENDPOINT>/couriers
 ```
