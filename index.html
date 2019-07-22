@@ -468,12 +468,13 @@ Optional: webhook normally expect response :ok, but can also receive <a href="#u
 <aside class="warning">
 Warning: any server error code (5xx), will trigger retry logic, 3 times in total. For any client error (4xx), system will not retry at all.
 </aside>
-<h1 id='patch-api'>PATCH API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">patch</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/couriers'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+<h1 id='patch-api'>PATCH API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">patch</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/couriers'</span><span class="p">,</span> <span class="ss">basic_auth: </span><span class="p">{</span> <span class="ss">username: </span><span class="n">secret_key</span> <span class="p">},</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
   <span class="ss">url: </span><span class="s1">'https://www.super-fast-shipping.com/webhook'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      --request PATCH <span class="se">\</span>
+     -u secret_key <span class="se">\</span>
      --data <span class="s1">'{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}'</span> <span class="se">\</span>
      https://&lt;ENDPOINT&gt;/couriers
 </code></pre>
