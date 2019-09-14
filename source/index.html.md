@@ -153,7 +153,7 @@ curl --header "Content-Type: application/json" \
 }
 ```
 
-This endpoint allow you to patch registered webhook url on Page365 system.
+This endpoint allow you to register new courier and webhook url on Page365 system.
 
 ### HTTP Request
 
@@ -172,7 +172,7 @@ The register might take a few days, due to verification process before actual sa
 
 # PATCH API
 
-## Register Webhook
+## Update Webhook
 
 ```ruby
 HTTParty.patch('https://<ENDPOINT>/couriers', basic_auth: { username: secret_key }, body: {
@@ -197,7 +197,7 @@ curl --header "Content-Type: application/json" \
 }
 ```
 
-This endpoint allow you to patch registered webhook url on Page365 system.
+This endpoint allow you to patch updated webhook url on Page365 system.
 
 ### HTTP Request
 
@@ -209,10 +209,6 @@ Parameter | Description
 --------- | -----------
 name | Name of the courier company
 url | Webhook url that Page365 will be send shipment information to
-
-<aside class="notice">
-The register might take a few days, due to verification process before actual save into system is done by men.
-</aside>
 
 # PUT API
 
