@@ -248,7 +248,7 @@
             <a href="#patch-api" class="toc-h1 toc-link" data-title="PATCH API">PATCH API</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#register-webhook-2" class="toc-h2 toc-link" data-title="Register Webhook">Register Webhook</a>
+                    <a href="#update-webhook" class="toc-h2 toc-link" data-title="Update Webhook">Update Webhook</a>
                   </li>
               </ul>
           </li>
@@ -493,7 +493,7 @@ Warning: any server error code (5xx), will trigger retry logic, 3 times in total
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint allow you to patch registered webhook url on Page365 system.</p>
+<p>This endpoint allow you to register new courier and webhook url on Page365 system.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://&lt;ENDPOINT&gt;/couriers</code></p>
 <h3 id='request-parameters'>Request Parameters</h3>
@@ -516,7 +516,7 @@ Warning: any server error code (5xx), will trigger retry logic, 3 times in total
 <aside class="notice">
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
-<h1 id='patch-api'>PATCH API</h1><h2 id='register-webhook-2'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">patch</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/couriers'</span><span class="p">,</span> <span class="ss">basic_auth: </span><span class="p">{</span> <span class="ss">username: </span><span class="n">secret_key</span> <span class="p">},</span> <span class="ss">body: </span><span class="p">{</span>
+<h1 id='patch-api'>PATCH API</h1><h2 id='update-webhook'>Update Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">patch</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/couriers'</span><span class="p">,</span> <span class="ss">basic_auth: </span><span class="p">{</span> <span class="ss">username: </span><span class="n">secret_key</span> <span class="p">},</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
   <span class="ss">url: </span><span class="s1">'https://www.super-fast-shipping.com/new_webhook'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
@@ -533,7 +533,7 @@ The register might take a few days, due to verification process before actual sa
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint allow you to patch registered webhook url on Page365 system.</p>
+<p>This endpoint allow you to patch updated webhook url on Page365 system.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>PATCH https://&lt;ENDPOINT&gt;/couriers</code></p>
 <h3 id='request-parameters-2'>Request Parameters</h3>
@@ -552,10 +552,6 @@ The register might take a few days, due to verification process before actual sa
 <td>Webhook url that Page365 will be send shipment information to</td>
 </tr>
 </tbody></table>
-
-<aside class="notice">
-The register might take a few days, due to verification process before actual save into system is done by men.
-</aside>
 <h1 id='put-api'>PUT API</h1><h2 id='update-shipment-details'>Update Shipment Details</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">put</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/shipments/1034234'</span><span class="p">,</span> <span class="ss">basic_auth: </span><span class="p">{</span> <span class="ss">username: </span><span class="n">secret_key</span> <span class="p">},</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">status: </span><span class="s1">'shipping'</span><span class="p">,</span>
   <span class="ss">tracking_code: </span><span class="s2">"ABQZ1234KL"</span><span class="p">,</span>
