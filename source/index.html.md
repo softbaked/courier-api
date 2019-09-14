@@ -126,12 +126,12 @@ Optional: webhook normally expect response :ok, but can also receive <a href="#u
 Warning: any server error code (5xx), will trigger retry logic, 3 times in total. For any client error (4xx), system will not retry at all.
 </aside>
 
-# PATCH API
+# POST API
 
 ## Register Webhook
 
 ```ruby
-HTTParty.patch('https://<ENDPOINT>/couriers', basic_auth: { username: secret_key }, body: {
+HTTParty.post('https://<ENDPOINT>/couriers', body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/webhook'
 }.to_json)
@@ -139,9 +139,53 @@ HTTParty.patch('https://<ENDPOINT>/couriers', basic_auth: { username: secret_key
 
 ```shell
 curl --header "Content-Type: application/json" \
-     --request PATCH \
+     --request POST \
      -u secret_key \
      --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}' \
+     https://<ENDPOINT>/couriers
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": 1
+}
+```
+
+This endpoint allow you to patch registered webhook url on Page365 system.
+
+### HTTP Request
+
+`POST https://<ENDPOINT>/couriers`
+
+### Request Parameters
+
+Parameter | Description
+--------- | -----------
+name | Name of the courier company
+url | Webhook url that Page365 will be send shipment information to
+
+<aside class="notice">
+The register might take a few days, due to verification process before actual save into system is done by men.
+</aside>
+
+# PATCH API
+
+## Register Webhook
+
+```ruby
+HTTParty.patch('https://<ENDPOINT>/couriers', basic_auth: { username: secret_key }, body: {
+  name: 'SuperFastShipping',
+  url: 'https://www.super-fast-shipping.com/new_webhook'
+}.to_json)
+```
+
+```shell
+curl --header "Content-Type: application/json" \
+     --request PATCH \
+     -u secret_key \
+     --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/mew_webhook"}' \
      https://<ENDPOINT>/couriers
 ```
 
@@ -170,12 +214,12 @@ url | Webhook url that Page365 will be send shipment information to
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
 
-# POST API
+# PUT API
 
 ## Update Shipment Details
 
 ```ruby
-HTTParty.post('https://<ENDPOINT>/shipments/1034234', basic_auth: { username: secret_key }, body: {
+HTTParty.put('https://<ENDPOINT>/shipments/1034234', basic_auth: { username: secret_key }, body: {
   status: 'shipping',
   tracking_code: "ABQZ1234KL",
   weight: 0.05,
@@ -186,6 +230,7 @@ HTTParty.post('https://<ENDPOINT>/shipments/1034234', basic_auth: { username: se
 
 ```shell
 curl --header "Content-Type: application/json" \
+     --request PUT \
      -u secret_key \
      --data '{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
      https://<ENDPOINT>/shipments/1034234
@@ -203,7 +248,7 @@ This endpoint allow you to update shipment status, weight, ref id, or note.
 
 ### HTTP Request
 
-`POST https://<ENDPOINT>/shipments/<ID>`
+`PUT https://<ENDPOINT>/shipments/<ID>`
 
 ### URL Parameters
 
