@@ -42,7 +42,7 @@ for <ENDPOINT> value in each api.
 
 Environnment | URL
 ------------ | ---
-Staging | `TBD`
+Staging | `https://courier.staging365.net/`
 Production | `https://courier.page365.net/`
 
 # Webhook
