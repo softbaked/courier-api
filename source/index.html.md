@@ -442,7 +442,7 @@ This endpoint allow you to get detail of specific account, for example, sender d
 
 ### HTTP Request
 
-`GET https://<ENDPOINT>/account/<ID>`
+`GET https://<ENDPOINT>/accounts/<ID>`
 
 ### Request Parameters
 
