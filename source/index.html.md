@@ -131,7 +131,7 @@ Warning: any server error code (5xx), will trigger retry logic, 3 times in total
 ## Register Webhook
 
 ```ruby
-HTTParty.post('https://<ENDPOINT>/couriers', body: {
+HTTParty.post('https://<ENDPOINT>/providers', body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/webhook'
 }.to_json)
@@ -142,7 +142,7 @@ curl --header "Content-Type: application/json" \
      --request POST \
      -u secret_key \
      --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}' \
-     https://<ENDPOINT>/couriers
+     https://<ENDPOINT>/providers
 ```
 
 > The above command returns JSON structured like this:
@@ -157,7 +157,7 @@ This endpoint allow you to register new courier and webhook url on Page365 syste
 
 ### HTTP Request
 
-`POST https://<ENDPOINT>/couriers`
+`POST https://<ENDPOINT>/providers`
 
 ### Request Parameters
 
@@ -175,7 +175,7 @@ The register might take a few days, due to verification process before actual sa
 ## Update Webhook
 
 ```ruby
-HTTParty.patch('https://<ENDPOINT>/couriers', basic_auth: { username: secret_key }, body: {
+HTTParty.patch('https://<ENDPOINT>/providers', basic_auth: { username: secret_key }, body: {
   name: 'SuperFastShipping',
   url: 'https://www.super-fast-shipping.com/new_webhook'
 }.to_json)
@@ -186,7 +186,7 @@ curl --header "Content-Type: application/json" \
      --request PATCH \
      -u secret_key \
      --data '{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/mew_webhook"}' \
-     https://<ENDPOINT>/couriers
+     https://<ENDPOINT>/providers
 ```
 
 > The above command returns JSON structured like this:
@@ -201,7 +201,7 @@ This endpoint allow you to patch updated webhook url on Page365 system.
 
 ### HTTP Request
 
-`PATCH https://<ENDPOINT>/couriers`
+`PATCH https://<ENDPOINT>/providers`
 
 ### Request Parameters
 
