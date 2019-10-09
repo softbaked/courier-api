@@ -476,7 +476,7 @@ Optional: webhook normally expect response :ok, but can also receive <a href="#u
 <aside class="warning">
 Warning: any server error code (5xx), will trigger retry logic, 3 times in total. For any client error (4xx), system will not retry at all.
 </aside>
-<h1 id='post-api'>POST API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/couriers'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
+<h1 id='post-api'>POST API</h1><h2 id='register-webhook'>Register Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/providers'</span><span class="p">,</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
   <span class="ss">url: </span><span class="s1">'https://www.super-fast-shipping.com/webhook'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
@@ -484,7 +484,7 @@ Warning: any server error code (5xx), will trigger retry logic, 3 times in total
      --request POST <span class="se">\</span>
      -u secret_key <span class="se">\</span>
      --data <span class="s1">'{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/webhook"}'</span> <span class="se">\</span>
-     https://&lt;ENDPOINT&gt;/couriers
+     https://&lt;ENDPOINT&gt;/providers
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -495,7 +495,7 @@ Warning: any server error code (5xx), will trigger retry logic, 3 times in total
 </span></code></pre>
 <p>This endpoint allow you to register new courier and webhook url on Page365 system.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://&lt;ENDPOINT&gt;/couriers</code></p>
+<p><code>POST https://&lt;ENDPOINT&gt;/providers</code></p>
 <h3 id='request-parameters'>Request Parameters</h3>
 <table><thead>
 <tr>
@@ -516,7 +516,7 @@ Warning: any server error code (5xx), will trigger retry logic, 3 times in total
 <aside class="notice">
 The register might take a few days, due to verification process before actual save into system is done by men.
 </aside>
-<h1 id='patch-api'>PATCH API</h1><h2 id='update-webhook'>Update Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">patch</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/couriers'</span><span class="p">,</span> <span class="ss">basic_auth: </span><span class="p">{</span> <span class="ss">username: </span><span class="n">secret_key</span> <span class="p">},</span> <span class="ss">body: </span><span class="p">{</span>
+<h1 id='patch-api'>PATCH API</h1><h2 id='update-webhook'>Update Webhook</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">patch</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/providers'</span><span class="p">,</span> <span class="ss">basic_auth: </span><span class="p">{</span> <span class="ss">username: </span><span class="n">secret_key</span> <span class="p">},</span> <span class="ss">body: </span><span class="p">{</span>
   <span class="ss">name: </span><span class="s1">'SuperFastShipping'</span><span class="p">,</span>
   <span class="ss">url: </span><span class="s1">'https://www.super-fast-shipping.com/new_webhook'</span>
 <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
@@ -524,7 +524,7 @@ The register might take a few days, due to verification process before actual sa
      --request PATCH <span class="se">\</span>
      -u secret_key <span class="se">\</span>
      --data <span class="s1">'{"name":"SuperFastShipping", "url":"https://www.super-fast-shipping.com/mew_webhook"}'</span> <span class="se">\</span>
-     https://&lt;ENDPOINT&gt;/couriers
+     https://&lt;ENDPOINT&gt;/providers
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -535,7 +535,7 @@ The register might take a few days, due to verification process before actual sa
 </span></code></pre>
 <p>This endpoint allow you to patch updated webhook url on Page365 system.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>PATCH https://&lt;ENDPOINT&gt;/couriers</code></p>
+<p><code>PATCH https://&lt;ENDPOINT&gt;/providers</code></p>
 <h3 id='request-parameters-2'>Request Parameters</h3>
 <table><thead>
 <tr>
