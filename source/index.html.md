@@ -103,6 +103,7 @@ name | false | Account name
 phone | true | Account phone, free text
 email | true | Account email, allow null
 address | false | (Address object) Address detail
+bank_account | true | (Bank account object) Bank account detail
 
 #### Address object
 
@@ -110,6 +111,14 @@ Parameter | Allow Null | Description
 --------- | ---------- | -----------
 text | false | Address detail on text, free text
 postcode | false | Postcode
+
+#### Bank account object
+
+Parameter | Allow Null | Description
+--------- | ---------- | -----------
+bank | false | Name of bank company
+number | false | Bank number
+name | false | Bank owner's name
 
 #### Parcel object
 
