@@ -89,6 +89,18 @@ Production | `https://courier.page365.net/`
 
 This is the webhook detail that Page365 will send to webhook url, after any shipment being created.
 
+### Validating Payloads
+
+Every webhook will have *SHA1* signature included in the request's `X-Hub-Signature` header, preceded with `sha1=`. You don't have to validate the payload, but you should.
+
+To validate the payload:
+1. Generate a *SHA1* signature using the payload and your `secret_key`.
+2. Compare your signature to the signature in the `X-Hub-Signature` header (everything after sha1=). If the signatures match, the payload is genuine.
+
+<aside class="notice">
+Please note that we generate the signature using an escaped unicode version of the payload, with lowercase hex digits. If you just calculate against the decoded bytes, you will end up with a different signature. For example, the string `เทสๆ` should be escaped to `\u0E40\u0E17\u0E2A\u0E46`.
+</aside>
+
 ### Webhook Body
 
 Parameter | Allow Null | Description
