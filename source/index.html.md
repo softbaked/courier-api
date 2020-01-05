@@ -72,6 +72,11 @@ Production | `https://courier.page365.net/`
     "address": {
       "text": "Softbaked Co., Ltd. (HQ) 90 Fifty Fifth Plaza 4/F Unit 4L2 Thong Lo 2, Sukhumvit 55 Rd., Khlong Tan Nuea, Watthana, Bangkok Thailand 10110",
       "postcode": 10110
+    },
+    "bank_account": {
+      "bank": "tmb",
+      "number": "756-1-22231-9",
+      "name": "Mr. Y"
     }
   },
   "parcel": {
