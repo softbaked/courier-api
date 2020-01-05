@@ -347,6 +347,11 @@
     </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Softbaked Co., Ltd. (HQ) 90 Fifty Fifth Plaza 4/F Unit 4L2 Thong Lo 2, Sukhumvit 55 Rd., Khlong Tan Nuea, Watthana, Bangkok Thailand 10110"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="mi">10110</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"bank_account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"bank"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tmb"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"756-1-22231-9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr. Y"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"parcel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -357,6 +362,16 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This is the webhook detail that Page365 will send to webhook url, after any shipment being created.</p>
+<h3 id='validating-payloads'>Validating Payloads</h3>
+<p>Every webhook will have <em>SHA1</em> signature included in the request&#39;s <code>X-Hub-Signature</code> header, preceded with <code>sha1=</code>. You don&#39;t have to validate the payload, but you should.</p>
+
+<p>To validate the payload:
+1. Generate a <em>SHA1</em> signature using the payload and your <code>secret_key</code>.
+2. Compare your signature to the signature in the <code>X-Hub-Signature</code> header (everything after sha1=). If the signatures match, the payload is genuine.</p>
+
+<aside class="notice">
+Please note that we generate the signature using an escaped unicode version of the payload, with lowercase hex digits. If you just calculate against the decoded bytes, you will end up with a different signature. For example, the string `เทสๆ` should be escaped to `\u0E40\u0E17\u0E2A\u0E46`.
+</aside>
 <h3 id='webhook-body'>Webhook Body</h3>
 <table><thead>
 <tr>
