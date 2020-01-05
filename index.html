@@ -366,11 +366,11 @@
 <p>Every webhook will have <strong>SHA1</strong> signature included in the request&#39;s <code>X-Hub-Signature</code> header, preceded with <code>sha1=</code>. You don&#39;t have to validate the payload, but you should.</p>
 
 <p>To validate the payload:
-1. Generate a <strong>SHA1</strong> signature using the payload and your <code>secret_key</code>
-2. Compare your signature to the signature in the <code>X-Hub-Signature</code> header (everything after <code>sha1=</code>). If the signatures match, the payload is genuine</p>
+- Generate a <strong>SHA1</strong> signature using the payload and your <code>secret_key</code>
+- Compare your signature to the signature in the <code>X-Hub-Signature</code> header (everything after <code>sha1=</code>). If the signatures match, the payload is genuine</p>
 
 <aside class="notice">
-Please note that we generate the signature using an escaped unicode version of the payload, with lowercase hex digits. If you just calculate against the decoded bytes, you will end up with a different signature. For example, the string <i>เทสๆ</i> should be escaped to <i>\u0E40\u0E17\u0E2A\u0E46</i>.
+Please note that we generate the signature using an escaped unicode version of the payload, with lowercase hex digits. If you just calculate against the decoded bytes, you will end up with a different signature. For example, the string <b><i>เทสๆ</i></b> should be escaped to <b><i>\u0E40\u0E17\u0E2A\u0E46</i></b>.
 </aside>
 <h3 id='webhook-body'>Webhook Body</h3>
 <table><thead>
