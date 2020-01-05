@@ -98,7 +98,7 @@ To validate the payload:
 - 2. Compare your signature to the signature in the `X-Hub-Signature` header (everything after `sha1=`). If the signatures match, the payload is genuine.
 
 <aside class="notice">
-Please note that we generate the signature using an escaped unicode version of the payload, with lowercase hex digits. If you just calculate against the decoded bytes, you will end up with a different signature. For example, the string `เทสๆ` should be escaped to `\u0E40\u0E17\u0E2A\u0E46`.
+Please note that we generate the signature using an escaped unicode version of the payload, with lowercase hex digits. If you just calculate against the decoded bytes, you will end up with a different signature. For example, the string <i>เทสๆ</i> should be escaped to <i>\u0E40\u0E17\u0E2A\u0E46</i>.
 </aside>
 
 ### Webhook Body
