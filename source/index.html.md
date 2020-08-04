@@ -7,7 +7,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
   - <a href='https://www.page365.net/'>Developed by Page365</a>
-  - <a href='mailto:peace@page365.net'>Technical Contact</a>
+  - <a href='mailto:pop@page365.net'>Technical Contact</a>
 
 includes:
   - errors
@@ -19,7 +19,7 @@ search: true
 
 Welcome to Page365 Courier API. This standard allows you to become a supported courier, delivering parcels for over 300,000 merchants on the Page365 platform.
 
-The purpose of the Courier API is to expedit the importing/exporting of ecommerce transaction data. Courier is still responsible for collecting shipment fees from the merchant, for handling COD transfers, and for maintaining its own relationship with the merchant. The Courier API will refer to each merchant with a consistent Account ID to ease in this mapping, as well as provide basic information about each merchant such as bank account and pickup address.
+The purpose of the Courier API is to expedite the importing/exporting of ecommerce transaction data. Courier is still responsible for collecting shipment fees from the merchant, for handling COD transfers, and for maintaining its own relationship with the merchant. The Courier API will refer to each merchant with a consistent Account ID to ease in this mapping, as well as provide basic information about each merchant such as bank account and pickup address.
 
 You can use the Courier API to register your webhook endpoint, at which Page365 will send new shipment orders. Subsequently, you can make requests according to this document to confirm shipment weight, and update shipment status for your users.
 
