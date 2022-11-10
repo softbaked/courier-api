@@ -127,6 +127,10 @@ bank_account | true | (Bank account object) Bank account detail
 Parameter | Allow Null | Description
 --------- | ---------- | -----------
 text | false | Address detail on text, free text
+province | true | Province
+district | true | District
+subdistrict | true | Subdistrict
+street | false | Street
 postcode | false | Postcode
 
 #### Bank account object
@@ -254,7 +258,7 @@ HTTParty.put('https://<ENDPOINT>/shipments/1034234', basic_auth: { username: sec
 curl --header "Content-Type: application/json" \
      --request PUT \
      -u secret_key \
-     --data '{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}' \
+     --data '{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}, "sorting_reference_1": "r1-r1-r1", "sorting_reference_2": "r2345", "sorting_reference_3": "r3333"' \
      https://<ENDPOINT>/shipments/1034234
 ```
 
@@ -287,7 +291,9 @@ tracking_code | No | Tracking code that will be printed on the parcel
 weight | No | Weight in kilogram unit (0.05 = 50 gram)
 reference_id | No | Any reference id that will be needed on other end
 note | No | Any free text for given shipment
-error_message | No | Reason for cancelled status
+sorting_reference_1 | No | Any reference for sorting
+sorting_reference_2 | No | Any reference for sorting
+sorting_reference_3 | No | Any reference for sorting
 
 # GET API
 
