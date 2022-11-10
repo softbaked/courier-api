@@ -459,6 +459,26 @@ Please note that we generate the signature using an escaped unicode version of t
 <td>Address detail on text, free text</td>
 </tr>
 <tr>
+<td>province</td>
+<td>true</td>
+<td>Province</td>
+</tr>
+<tr>
+<td>district</td>
+<td>true</td>
+<td>District</td>
+</tr>
+<tr>
+<td>subdistrict</td>
+<td>true</td>
+<td>Subdistrict</td>
+</tr>
+<tr>
+<td>street</td>
+<td>false</td>
+<td>Street</td>
+</tr>
+<tr>
 <td>postcode</td>
 <td>false</td>
 <td>Postcode</td>
@@ -606,7 +626,7 @@ The register might take a few days, due to verification process before actual sa
 </code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
      --request PUT <span class="se">\</span>
      -u secret_key <span class="se">\</span>
-     --data <span class="s1">'{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}'</span> <span class="se">\</span>
+     --data <span class="s1">'{"status":"shipping", "tracking_code":"ABQZ1234KL", "weight":0.05, "reference_id": "003-11245", "note": "dimention size: 3 * 3 * 3"}, "sorting_reference_1": "r1-r1-r1", "sorting_reference_2": "r2345", "sorting_reference_3": "r3333"'</span> <span class="se">\</span>
      https://&lt;ENDPOINT&gt;/shipments/1034234
 </code></pre>
 <blockquote>
@@ -665,9 +685,19 @@ The register might take a few days, due to verification process before actual sa
 <td>Any free text for given shipment</td>
 </tr>
 <tr>
-<td>error_message</td>
+<td>sorting_reference_1</td>
 <td>No</td>
-<td>Reason for cancelled status</td>
+<td>Any reference for sorting</td>
+</tr>
+<tr>
+<td>sorting_reference_2</td>
+<td>No</td>
+<td>Any reference for sorting</td>
+</tr>
+<tr>
+<td>sorting_reference_3</td>
+<td>No</td>
+<td>Any reference for sorting</td>
 </tr>
 </tbody></table>
 <h1 id='get-api'>GET API</h1><h2 id='get-shipment-list'>Get Shipment List</h2><pre class="highlight ruby tab-ruby"><code><span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'https://&lt;ENDPOINT&gt;/shipments'</span><span class="p">,</span> <span class="ss">basic_auth: </span><span class="p">{</span> <span class="ss">username: </span><span class="n">secret_key</span> <span class="p">},</span> <span class="ss">body: </span><span class="p">{</span>
